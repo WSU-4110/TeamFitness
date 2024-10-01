@@ -1,10 +1,3 @@
-<div align="center">
-    <h1 align="center">Total Fitness</h1>
-    <p align="center">
-        Your Partner in Fitness Progress. <br />
-    </p>
-</div>
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 **Total Fitness** is a social media app to track your gym progress, share with friends, and compete to reach milestones
@@ -17,6 +10,7 @@ Technology stack:
 - **Testing**: Android devices with Google Play Beta Testing
 
 <!--
+Diego Test Comment
 ## Getting Started
 To start using the Ultimate Fitness App:
 1. **Install** the app from Google Play Store or Apple App Store.
