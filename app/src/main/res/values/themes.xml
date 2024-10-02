@@ -2,7 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#2547a5</item> <!-- Action bar color -->
+        <item name="colorPrimaryDark">#0c2e8c</item> <!-- Status bar color -->
+        <item name="colorAccent">#a9b3cf</item> <!-- Accent color -->
     </style>
 
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
