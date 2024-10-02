@@ -44,6 +44,16 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.coordinatorlayout)
+
+    // for Recycle & card view
+    implementation(libs.cardview)
+    implementation(libs.com.github.bumptech.glide.glide2)
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor(libs.compiler)
+    implementation(libs.constraintlayout.v213)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
