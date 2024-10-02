@@ -5,10 +5,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_progress">Progress</string>
 
-<!--    Used for posts  -->
+    <!--    Used for posts  -->
     <string name="title_placeholder">Title</string>
     <string name="user_placeholder">User</string>
     <string name="posts_info_placeholder">Here is some news</string>
+    <string name="action_account">Account</string>
+    <string name="action_account_message">Account Default Message</string>
+
 
     <string-array name="posts_titles">
         <item>Post Title 1</item>
@@ -48,7 +51,6 @@
         <item>@drawable/img_running</item>
         <item>@drawable/img_running</item>
     </array>
-<!--    Used for posts  -->
 
 
 </resources>
