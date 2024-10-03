@@ -1,6 +1,7 @@
 package com.example.myapplication.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.PostDetailActivity;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -79,7 +81,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     /**
      * ViewHolder class that represents each row of data in the RecyclerView.
      */
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener{
 
         // Member Variables for the TextViews
         private TextView mTitleText;
@@ -98,15 +101,31 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             mTitleText = itemView.findViewById(R.id.title);
             mInfoText = itemView.findViewById(R.id.subTitle);
             mPostsImage = itemView.findViewById(R.id.postsImage);
+
+            // Set the OnClickListener to the entire view.
+            itemView.setOnClickListener(this);
         }
 
         void bindTo(Post currentPost){
             // Populate the textviews with data.
             mTitleText.setText(currentPost.getTitle());
             mInfoText.setText(currentPost.getInfo());
-
-
             Glide.with(mContext).load(currentPost.getImageResource()).into(mPostsImage);
+        }
+
+
+
+
+        @Override
+        public void onClick(View view) {
+            Post currentPost = mPostsData.get(getAdapterPosition());
+
+            Intent detailIntent = new Intent(mContext, PostDetailActivity.class);
+            detailIntent.putExtra("title", currentPost.getTitle());
+            detailIntent.putExtra("image_resource",
+                    currentPost.getImageResource());
+            mContext.startActivity(detailIntent);
+
         }
     }
 }

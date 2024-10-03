@@ -12,6 +12,13 @@
     <string name="action_account">Account</string>
     <string name="action_account_message">Account Default Message</string>
 
+    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Praesent ultrices congue rutrum.
+    Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
+    eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum
+    blandit, dolor diam fringilla tellus, eu euismod mauris neque
+    at neque.</string>
+
     <string-array name="posts_titles">
         <item>Post Title 1</item>
         <item>Post Title 2</item>
@@ -51,7 +58,6 @@
         <item>@drawable/img_running</item>
     </array>
     <!--    Used for posts  -->
-
 
 
 </resources>
