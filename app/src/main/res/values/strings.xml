@@ -1,7 +1,57 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_tracker">Tracker</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_progress">Progress</string>
+
+    <!--    Used for posts  -->
+    <string name="title_placeholder">Title</string>
+    <string name="user_placeholder">User</string>
+    <string name="posts_info_placeholder">Here is some news</string>
+    <string name="action_account">Account</string>
+    <string name="action_account_message">Account Default Message</string>
+
+    <string-array name="posts_titles">
+        <item>Post Title 1</item>
+        <item>Post Title 2</item>
+        <item>Post Title 3</item>
+        <item>Post Title 4</item>
+        <item>Post Title 5</item>
+        <item>Post Title 6</item>
+        <item>Post Title 7</item>
+        <item>Post Title 8</item>
+        <item>Post Title 9</item>
+        <item>Post Title 10</item>
+    </string-array>
+
+    <string-array name="posts_info">
+        <item>Post Info 1</item>
+        <item>Post Info 2</item>
+        <item>Post Info 3</item>
+        <item>Post Info 4</item>
+        <item>Post Info 5</item>
+        <item>Post Info 6</item>
+        <item>Post Info 7</item>
+        <item>Post Info 8</item>
+        <item>Post Info 9</item>
+        <item>Post Info 10</item>
+    </string-array>
+
+    <array name="posts_images">
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+        <item>@drawable/img_running</item>
+    </array>
+    <!--    Used for posts  -->
+
+
+
 </resources>
