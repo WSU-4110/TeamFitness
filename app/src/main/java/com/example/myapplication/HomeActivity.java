@@ -16,7 +16,6 @@ import com.example.myapplication.databinding.ActivityHomeBinding;
 import androidx.appcompat.widget.Toolbar;
 import android.widget.Toast;
 
-
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
@@ -53,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_account) {
