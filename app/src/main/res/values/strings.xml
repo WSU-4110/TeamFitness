@@ -43,6 +43,13 @@
     blandit, dolor diam fringilla tellus, eu euismod mauris neque
     at neque.</string>
 
+    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Praesent ultrices congue rutrum.
+    Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
+    eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum
+    blandit, dolor diam fringilla tellus, eu euismod mauris neque
+    at neque.</string>
+
     <string-array name="posts_titles">
         <item>Workout Routine Title 1</item>
         <item>Workout Routine Title 2</item>
@@ -141,6 +148,5 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="tell_us_about_yourself">Tell us about yourself</string>
     <string name="save">Save</string>
-
 
 </resources>
