@@ -24,16 +24,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-
-            // Initialize Firebase database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-            // Get a reference to "message" node
-            DatabaseReference myRef = database.getReference("message");
-
-            // Write a value to the database
-            myRef.setValue("Hello, World!");
         setContentView(R.layout.activity_main);
 
         username = findViewById(R.id.username);
