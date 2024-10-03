@@ -59,7 +59,6 @@
         <item>@drawable/img_running</item>
         <item>@drawable/img_running</item>
     </array>
-    <!--    Used for posts  -->
 
     <!--    Used for milestones  -->
     <array name="milestone_posts_images">
