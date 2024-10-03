@@ -43,6 +43,13 @@
 
     <string name="fab_desc">floating button description</string>
 
+    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Praesent ultrices congue rutrum.
+    Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
+    eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum
+    blandit, dolor diam fringilla tellus, eu euismod mauris neque
+    at neque.</string>
+
     <string-array name="posts_titles">
         <item>Post Title 1</item>
         <item>Post Title 2</item>
@@ -113,6 +120,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
     <string name="fab_desc_post">fab description post</string>
-
 
 </resources>
