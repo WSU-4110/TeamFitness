@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.PostDetailActivity;
+//import com.example.myapplication.PostDetailActivity;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ import java.util.ArrayList;
 /***
  * The adapter class for the RecyclerView, contains the Posts data.
  */
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>  {
+public class MilestonePostsAdapter extends RecyclerView.Adapter<MilestonePostsAdapter.ViewHolder>  {
 
     // Member variables.
-    private ArrayList<Post> mPostsData;
-    private Context mContext;
+    private ArrayList<Post> miPostsData;
+    private Context miContext;
 
     /**
      * Constructor that passes in the Posts data and the context.
@@ -31,9 +31,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
      * @param postsData ArrayList containing the Posts data.
      * @param context Context of the application.
      */
-    public PostsAdapter(Context context, ArrayList<Post> postsData) {
-        this.mPostsData = postsData;
-        this.mContext = context;
+    public MilestonePostsAdapter(Context context, ArrayList<Post> postsData) {
+        this.miPostsData = postsData;
+        this.miContext = context;
     }
 
 
@@ -46,10 +46,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
      * @return The newly created ViewHolder.
      */
     @Override
-    public PostsAdapter.ViewHolder onCreateViewHolder(
+    public MilestonePostsAdapter.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).
-                inflate(R.layout.list_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(miContext).
+                inflate(R.layout.milestone_list_item, parent, false));
     }
 
     /**
@@ -59,10 +59,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
      * @param position The adapter position.
      */
     @Override
-    public void onBindViewHolder(PostsAdapter.ViewHolder holder,
+    public void onBindViewHolder(MilestonePostsAdapter.ViewHolder holder,
                                  int position) {
         // Get current Post.
-        Post currentPost = mPostsData.get(position);
+        Post currentPost = miPostsData.get(position);
 
         // Populate the textviews with data.
         holder.bindTo(currentPost);
@@ -75,7 +75,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
      */
     @Override
     public int getItemCount() {
-        return mPostsData.size();
+        return miPostsData.size();
     }
 
     /**
@@ -85,22 +85,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             implements View.OnClickListener{
 
         // Member Variables for the TextViews
-        private TextView mTitleText;
-        private TextView mInfoText;
-        private ImageView mPostsImage;
+        private TextView miTitleText;
+        private TextView miInfoText;
+        private ImageView miPostsImage;
 
         /**
          * Constructor for the ViewHolder, used in onCreateViewHolder().
          *
-         * @param itemView The rootview of the list_item.xml layout file.
+         * @param itemView The rootview of the milestone_list_item.xml layout file.
          */
         ViewHolder(View itemView) {
             super(itemView);
 
             // Initialize the views.
-            mTitleText = itemView.findViewById(R.id.title);
-            mInfoText = itemView.findViewById(R.id.subTitle);
-            mPostsImage = itemView.findViewById(R.id.postsImage);
+            miTitleText = itemView.findViewById(R.id.workoutTitle);
+            miInfoText = itemView.findViewById(R.id.subTitle);
+            miPostsImage = itemView.findViewById(R.id.milestonePostsImage);
 
             // Set the OnClickListener to the entire view.
             itemView.setOnClickListener(this);
@@ -108,9 +108,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         void bindTo(Post currentPost){
             // Populate the textviews with data.
-            mTitleText.setText(currentPost.getTitle());
-            mInfoText.setText(currentPost.getInfo());
-            Glide.with(mContext).load(currentPost.getImageResource()).into(mPostsImage);
+            miTitleText.setText(currentPost.getTitle());
+            miInfoText.setText(currentPost.getInfo());
+            Glide.with(miContext).load(currentPost.getImageResource()).into(miPostsImage);
         }
 
 
@@ -118,13 +118,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         @Override
         public void onClick(View view) {
-            Post currentPost = mPostsData.get(getAdapterPosition());
+            Post currentPost = miPostsData.get(getAdapterPosition());
 
-            Intent detailIntent = new Intent(mContext, PostDetailActivity.class);
-            detailIntent.putExtra("title", currentPost.getTitle());
-            detailIntent.putExtra("image_resource",
-                    currentPost.getImageResource());
-            mContext.startActivity(detailIntent);
+//            Intent detailIntent = new Intent(mContext, PostDetailActivity.class);
+//            detailIntent.putExtra("title", currentPost.getTitle());
+//            detailIntent.putExtra("image_resource",
+//                    currentPost.getImageResource());
+//            mContext.startActivity(detailIntent);
 
         }
     }
