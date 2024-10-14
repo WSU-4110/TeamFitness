@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.widget.ImageButton;
+import android.view.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,28 +22,25 @@ public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
 
+    ImageButton imageButton; // Declare the button
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home); // Make sure you're using the right layout
 
+        // Initialize the imageButton
+        imageButton = findViewById(R.id.imageButton);
 
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // Find the toolbar and set it as the ActionBar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_tracker, R.id.navigation_dashboard, R.id.navigation_progress)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_home);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        // Set a click listener on the imageButton
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the Profile activity
+                Intent intent = new Intent(HomeActivity.this, Profile.class);
+                startActivity(intent);
+            }
+        });  // Properly close the onClickListener here
 
     }
 
@@ -52,15 +51,22 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+
+        // Check if the profile button was clicked
         if (itemId == R.id.action_account) {
+            // Navigate to the AccountActivity when the account button is clicked
             Intent intent = new Intent(HomeActivity.this, AccountActivity.class);
             startActivity(intent);
+            return true;
+        } else if (itemId == R.id.toolbar) {
+            // Navigate to ProfileActivity when the profile button is clicked
+            Intent intent = new Intent(HomeActivity.this, Profile.class);
+            startActivity(intent);
+            return true;
         }
+
         return super.onOptionsItemSelected(item);
-
-
     }
 }

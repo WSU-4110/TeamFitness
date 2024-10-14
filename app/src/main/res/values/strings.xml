@@ -17,9 +17,8 @@
     <string name="posts_info_placeholder">Here is some news</string>
     <string name="action_account">Account</string>
     <string name="action_account_message">Account Default Message</string>
-    <string name="prof_img_desc1">Profile image</string>
-    <string name="prof_img_desc2">Profile image</string>
-    <string name="prof_img_desc3">Profile image</string>
+    <string name="prof_img_desc1">Profile</string>
+    <string name="app_name">TeamFitness</string>
     <string-array name="posts_titles">
         <item>Post Title 1</item>
         <item>Post Title 2</item>
