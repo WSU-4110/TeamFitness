@@ -18,9 +18,27 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SignUpPage extends AppCompatActivity {
+
+    // Initialize Button to go back to log in
+    Button backToLogIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
+
+        backToLogIn = findViewById(R.id.loginButton);
+
+        backToLogIn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                // If the user clicks on the sign up button
+                // it redirects them back to the main log in page
+                Intent intent = new Intent(SignUpPage.this, MainActivity.class );
+                startActivity(intent);
+                finish();
+            }
+        });
     }
+
 }
