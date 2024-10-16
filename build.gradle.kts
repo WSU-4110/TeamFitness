@@ -3,3 +3,24 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.google.gms.google.services) apply false
 }
+
+buildscript{
+    repositories {
+        google()
+    }
+    dependencies{
+        //classpath(libs.google.servicses)
+
+        classpath("com.google.gms:google-services:4.4.2")
+    }
+}
+/*
+allprojects{
+    repositories{
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+   }
+ */
+
