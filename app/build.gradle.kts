@@ -36,7 +36,8 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.appcompat:appcompat:1.6.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -60,4 +61,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Import the BoM for the Firebase platform
+    implementation(platform(libs.firebase.bom))
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.auth.ktx)
+
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation(libs.play.services.auth)
+
+    implementation(libs.firebase.analytics)
+
+
 }
