@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,20 @@ import android.widget.Toast;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 
 public class SignUpPage extends AppCompatActivity {
@@ -58,7 +73,6 @@ public class SignUpPage extends AppCompatActivity {
         backToLogIn = findViewById(R.id.loginButton);
         registered = findViewById(R.id.registerButton);
 
-
         backToLogIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -69,43 +83,6 @@ public class SignUpPage extends AppCompatActivity {
                 finish();
             }
         });
-
-/*
-        registered.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Getting the user inputs
-                String userEmail = email.getText().toString();
-                String userPassword = password.getText().toString();
-                String userConfirmPassword = confirmPassword.getText().toString();
-
-                Log.d("DEBUG", "Email: " + userEmail);
-                Log.d("DEBUG", "Password: " + userPassword);
-                Log.d("DEBUG", "Confirm Password: " + userConfirmPassword);
-
-                if (emailCheck(userEmail) && passwordCheck(userPassword)
-                        && passwordSame(userPassword, userConfirmPassword)) {
-
-                    Log.d("DEBUG", "Valid email and password. Starting HomeActivity...");
-                    Intent loggedIn = new Intent(SignUpPage.this, HomeActivity.class);
-                    startActivity(loggedIn);
-                    finish();
-                } else {
-                    if (!emailCheck(userEmail)) {
-                        Toast.makeText(SignUpPage.this, "Invalid Email Format. EX: john@gmail.com",
-                                Toast.LENGTH_SHORT).show();
-                    } else if (!passwordCheck(userPassword)) {
-                        Toast.makeText(SignUpPage.this, "Password must have a minimum length of 8, 1 special character, a capital letter, and a number.",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SignUpPage.this, "Passwords must match.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-
-*/
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -142,4 +119,3 @@ public class SignUpPage extends AppCompatActivity {
             };
         });
     }
-}
