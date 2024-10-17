@@ -107,6 +107,10 @@ public class SignUpPage extends AppCompatActivity {
 
 */
 
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
+
         registered.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -128,7 +132,7 @@ public class SignUpPage extends AppCompatActivity {
                         Toast.makeText(SignUpPage.this, "Invalid Email Format. EX: john@gmail.com",
                                 Toast.LENGTH_SHORT).show();
                     } else if (!passwordCheck(userPassword)) {
-                        Toast.makeText(SignUpPage.this, "Password must have a minimum length of 8, 1 special character, a capital letter, and a number."
+                        Toast.makeText(SignUpPage.this, "Must have a min. length of 8, a special character, a capital letter, and a number."
                                 , Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SignUpPage.this, "Passwords must match.",
