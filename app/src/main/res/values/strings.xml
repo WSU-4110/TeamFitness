@@ -1,16 +1,25 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="top_background_desc">Top background image</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_tracker">Tracker</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_progress">Progress</string>
-
-    <!--    Used for posts  -->
+    <string name="return_home">Return Home</string>
+    <string name="settings">Settings</string>
+    <string name="accessibility">Accessibility</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="notifications">Notifications</string>
+    <string name="bio">Bio</string>
     <string name="title_placeholder">Title</string>
     <string name="user_placeholder">User</string>
     <string name="posts_info_placeholder">Post Information Placeholder</string>
     <string name="action_account">Account</string>
     <string name="action_account_message">Account Default Message</string>
+
+    <string name="prof_img_desc1">Profile</string>
+    <string name="app_name">TeamFitness</string>
 
     <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
     consectetur adipiscing elit. Praesent ultrices congue rutrum.
@@ -59,7 +68,6 @@
         <item>@drawable/img_running</item>
         <item>@drawable/img_running</item>
     </array>
-    <!--    Used for posts  -->
 
     <!--    Used for milestones  -->
     <array name="milestone_posts_images">
