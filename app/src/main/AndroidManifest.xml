@@ -22,11 +22,13 @@
             android:name=".PostDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".Profile" />
+        <activity
             android:name=".AccountActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_home" />
         <activity
             android:name=".MainActivity"
