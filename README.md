@@ -18,6 +18,7 @@ To start using the Ultimate Fitness App:
 3. **Enjoy** connecting with friends and achieving fitness milestones together!
 -->
 
+
 ## Group Members
 - Ike A
 - Noah W
