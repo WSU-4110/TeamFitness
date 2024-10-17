@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "241717036275",
+    "firebase_url": "https://totalfitness-e9850-default-rtdb.firebaseio.com",
+    "project_id": "totalfitness-e9850",
+    "storage_bucket": "totalfitness-e9850.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241717036275:android:31fdeb2b979567d5502386",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRKkuNJPNoFUJYWh35WDW80iBTZDtNrgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

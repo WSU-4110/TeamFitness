@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -50,6 +51,8 @@ dependencies {
     // for Recycle & card view
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)
