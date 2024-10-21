@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -73,17 +74,26 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     private void firebaseSignUp(String userEmail, String userPassword){
-        fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign-in was successful
-                    Toast.makeText(SignUpPage.this, "Sign-in successful!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Sign-in failed
-                    Toast.makeText(SignUpPage.this, "Sign-in failed!", Toast.LENGTH_SHORT).show();
+
+            fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Registration in was successful
+                        Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                            // Email already in the database
+                            Toast.makeText(SignUpPage.this, "Email already in use", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Registration failed for some other reason
+                            Toast.makeText(SignUpPage.this, "Registration in failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-            }
-        });
+            });
     };
 
     @Override
@@ -121,10 +131,8 @@ public class SignUpPage extends AppCompatActivity {
                 // Checks the users inputs
                 if (emailCheck(userEmail) && passwordCheck(userPassword)
                         && passwordSame(userPassword, userConfirmPassword)) {
+
                     firebaseSignUp(userEmail, userPassword);
-                    Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
                 // If the user enters an incorrect field it will let them know
                 else {
