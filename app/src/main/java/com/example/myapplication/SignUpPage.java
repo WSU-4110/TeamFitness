@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -24,9 +25,15 @@ import android.content.Intent;
 
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ktx.Firebase;
 
 
 
@@ -44,26 +51,51 @@ public class SignUpPage extends AppCompatActivity {
     EditText password;
     EditText confirmPassword;
 
-    public boolean emailCheck(String email){
+    private FirebaseAuth fAuth;
+
+    public boolean emailCheck(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public boolean passwordCheck(String password){
+    public boolean passwordCheck(String password) {
         String passwordRegex = "^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?\":{}|<>])(?=.*[0-9]).{8,}$";
         Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
 
-    public boolean passwordSame(String password1, String password2){
-        if(Objects.equals(password1, password2)){
+    public boolean passwordSame(String password1, String password2) {
+        if (Objects.equals(password1, password2)) {
             return true;
         }
         return false;
     }
+
+    private void firebaseSignUp(String userEmail, String userPassword){
+
+            fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Registration in was successful
+                        Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                            // Email already in the database
+                            Toast.makeText(SignUpPage.this, "Email already in use", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Registration failed for some other reason
+                            Toast.makeText(SignUpPage.this, "Registration in failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +105,12 @@ public class SignUpPage extends AppCompatActivity {
         backToLogIn = findViewById(R.id.loginButton);
         registered = findViewById(R.id.registerButton);
 
-        backToLogIn.setOnClickListener(new View.OnClickListener(){
+        backToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 // If the user clicks on the sign up button
                 // it redirects them back to the main log in page
-                Intent intent = new Intent(SignUpPage.this, MainActivity.class );
+                Intent intent = new Intent(SignUpPage.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -88,7 +120,10 @@ public class SignUpPage extends AppCompatActivity {
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirmPassword);
 
-        registered.setOnClickListener(new View.OnClickListener(){
+        fAuth = FirebaseAuth.getInstance();
+
+        registered.setOnClickListener(new View.OnClickListener() {
+          
             @Override
             public void onClick(View v) {
                 // Getting the user inputs
@@ -98,10 +133,14 @@ public class SignUpPage extends AppCompatActivity {
 
                 // Checks the users inputs
                 if (emailCheck(userEmail) && passwordCheck(userPassword)
-                        && passwordSame(userPassword, userConfirmPassword)) {
-                        Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+                        && passwordSame(userPassword, userConfirmPassword)) 
+                {
+                    firebaseSignUp(userEmail, userPassword);
+
+                        // dont know if neeeded:
+                        // Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
+                        // startActivity(intent);
+                        // finish();
                 }
                 // If the user enters an incorrect field it will let them know
                 else {
@@ -116,6 +155,8 @@ public class SignUpPage extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-            };
+            }
         });
     }
+}
+
