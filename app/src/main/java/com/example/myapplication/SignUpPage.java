@@ -36,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ktx.Firebase;
 
 
+
 public class SignUpPage extends AppCompatActivity {
 
     // Initialize Button to go back to log in and to register
@@ -118,9 +119,11 @@ public class SignUpPage extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirmPassword);
+
         fAuth = FirebaseAuth.getInstance();
 
         registered.setOnClickListener(new View.OnClickListener() {
+          
             @Override
             public void onClick(View v) {
                 // Getting the user inputs
@@ -130,9 +133,14 @@ public class SignUpPage extends AppCompatActivity {
 
                 // Checks the users inputs
                 if (emailCheck(userEmail) && passwordCheck(userPassword)
-                        && passwordSame(userPassword, userConfirmPassword)) {
-
+                        && passwordSame(userPassword, userConfirmPassword)) 
+                {
                     firebaseSignUp(userEmail, userPassword);
+
+                        // dont know if neeeded:
+                        // Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
+                        // startActivity(intent);
+                        // finish();
                 }
                 // If the user enters an incorrect field it will let them know
                 else {
@@ -151,3 +159,4 @@ public class SignUpPage extends AppCompatActivity {
         });
     }
 }
+
