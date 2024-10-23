@@ -28,6 +28,7 @@
     at neque.</string>
     <string name="milestone_posts_subtitle_placeholder">(60 min)</string>
     <string name="milestone_workout_title_placeholder">Jogging</string>
+    <string name="log_out">Log Out</string>
 
     <string-array name="posts_titles">
         <item>Post Title 1</item>
