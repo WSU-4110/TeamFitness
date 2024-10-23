@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Profile extends AppCompatActivity {
 
-    Button settingsButton, accessibilityButton, personalInfoButton, notificationsButton, bioButton, returnHomeButton;
+    Button settingsButton, logOutButton, personalInfoButton,
+            notificationsButton, bioButton, returnHomeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +17,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.profile);
 
         settingsButton = findViewById(R.id.button);
-        accessibilityButton = findViewById(R.id.button2);
+        logOutButton = findViewById(R.id.logOut);
         personalInfoButton = findViewById(R.id.button3);
         notificationsButton = findViewById(R.id.button4);
         bioButton = findViewById(R.id.button5);
@@ -30,10 +31,10 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        accessibilityButton.setOnClickListener(new View.OnClickListener() {
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, AccessibilityActivity.class);
+                Intent intent = new Intent(Profile.this, MainActivity.class);
                 startActivity(intent);
             }
         });

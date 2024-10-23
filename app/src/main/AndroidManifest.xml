@@ -19,10 +19,11 @@
             android:name=".SignUpPage"
             android:exported="false"/>
         <activity
+            android:name=".Profile"
+            android:exported="false"/>
+        <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".Profile" />
         <activity
             android:name=".AccountActivity"
             android:exported="false" />
