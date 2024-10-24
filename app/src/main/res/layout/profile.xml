@@ -97,25 +97,6 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button2"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="320dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/background_1"
-                        android:drawableStart="@drawable/notes"
-                        android:drawablePadding="20dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/accessibility"
-                        android:textAlignment="viewStart"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button3"
                         style="@android:style/Widget.Button"
                         android:layout_width="320dp"
@@ -173,6 +154,26 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/logOut"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="320dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/background_1"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/log_out"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <!-- Add picture for log out
+                    staticTextandroid:drawableStart="@drawable/LogOut_Picture"-->
+
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/HomeButton"
                         style="@android:style/Widget.Button"
                         android:layout_width="320dp"
@@ -185,6 +186,7 @@
                         android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
