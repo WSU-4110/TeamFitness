@@ -11,11 +11,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.databinding.ActivityHomeBinding;
 import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import android.view.View;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
+    private FloatingActionButton fab, fab_workoutroutine, fab_post;
+    private boolean isFabOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,44 @@ public class HomeActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        fab = findViewById(R.id.fab);
+        fab_workoutroutine = findViewById(R.id.fab_workoutroutine);
+        fab_post = findViewById(R.id.fab_post);
+
+        fab_workoutroutine.setVisibility(View.GONE);
+        fab_post.setVisibility(View.GONE);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFabOpen) {
+                    fab_workoutroutine.setVisibility(View.GONE);
+                    fab_post.setVisibility(View.GONE);
+                    isFabOpen = false;
+                } else {
+                    fab_workoutroutine.setVisibility(View.VISIBLE);
+                    fab_post.setVisibility(View.VISIBLE);
+                    isFabOpen = true;
+                }
+            }
+        });
+        fab_workoutroutine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(HomeActivity.this, WorkoutRoutineCreationActivity.class);
+                startActivity(intent);
+            }
+        });
+        fab_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, PostCreationActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
