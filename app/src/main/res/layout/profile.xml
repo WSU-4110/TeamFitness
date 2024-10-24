@@ -169,9 +169,9 @@
                         android:text="@string/log_out"
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
-                    <!-- Add picture for log out
-                    staticTextandroid:drawableStart="@drawable/LogOut_Picture"-->
+                        android:textStyle="bold"
+                        android:drawableStart="@drawable/exit"/>
+
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/HomeButton"

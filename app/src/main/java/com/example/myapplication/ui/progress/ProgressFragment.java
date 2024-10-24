@@ -4,137 +4,121 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import com.example.myapplication.databinding.FragmentProgressBinding;
-
-import android.content.res.TypedArray;
-
-import com.example.myapplication.R;
-
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.ui.Post;
-import com.example.myapplication.ui.MilestonePostsAdapter;
+import com.example.myapplication.R;
 
-import java.util.ArrayList;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import androidx.annotation.Nullable;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+
 
 public class ProgressFragment extends Fragment {
 
-    private FragmentProgressBinding binding;
-    private RecyclerView miRecyclerView;
-    private ArrayList<Post> miPostsData;
-    private MilestonePostsAdapter miAdapter;
+    private DatabaseReference databaseReference;
+    private EditText inputNumber;
+    private Button buttonSave;
+    private TextView textProgress;
+    private RecyclerView recyclerView;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser currentUser;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ProgressViewModel progressViewModel =
-                new ViewModelProvider(this).get(ProgressViewModel.class);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        binding = FragmentProgressBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        // Initialize Firebase Auth and Database
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
 
-        final TextView textView = binding.textProgress;
-        progressViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        if (currentUser != null) {
+            // Reference to current user's data in Firebase Database
+            databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("numbers");
+        } else {
+            // Handle case when user is not logged in (if needed)
+            Toast.makeText(getContext(), "User not logged in!", Toast.LENGTH_SHORT).show();
+            return view;
+        }
 
-        // Initialize the RecyclerView.
-        miRecyclerView = root.findViewById(R.id.recyclerView);
+        // Initialize UI components
+        inputNumber = view.findViewById(R.id.input_number);
+        buttonSave = view.findViewById(R.id.button_save);
+        textProgress = view.findViewById(R.id.text_progress);
+        recyclerView = view.findViewById(R.id.recyclerView);
 
-// Set the RecyclerView to horizontal scrolling.
-        miRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        // Setup RecyclerView (add your adapter later)
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        miPostsData = new ArrayList<>();
+        // Load user's saved number when fragment is created
+        loadSavedNumber();
 
-        miAdapter = new MilestonePostsAdapter(getContext(), miPostsData);
-        miRecyclerView.setAdapter(miAdapter);
-
-        initializeData();
-
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
-                .SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        // Set up Save button click listener
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                // remove the item from the database
-                miPostsData.remove(viewHolder.getAdapterPosition());
-                // notify the adapter about the removed item
-                miAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            public void onClick(View v) {
+                saveNumberToFirebase();
             }
         });
 
-        // attach the helper to the recycler view
-        helper.attachToRecyclerView(miRecyclerView);
-
-        return root;
+        return view;
     }
 
-    /**
-     * Initialize the posts data from resources.
-     */
-    private void initializeData() {
-        // Get the resources from the XML file.
-        String[] postsList = getResources()
-                .getStringArray(R.array.posts_titles);
-        String[] postsInfo = getResources()
-                .getStringArray(R.array.posts_info);
+    private void saveNumberToFirebase() {
+        String number = inputNumber.getText().toString().trim();
 
-        // Clear the existing data (to avoid duplication).
-        miPostsData.clear();
-        TypedArray postsImageResources =
-                getResources().obtainTypedArray(R.array.milestone_posts_images);
-
-        // Create the ArrayList of Posts objects with titles and
-        // information about each post.
-        for(int i=0;i<postsList.length;i++){
-            miPostsData.add(new Post(postsList[i],postsInfo[i],
-                    postsImageResources.getResourceId(i,0)));
+        if (!number.isEmpty()) {
+            // Save the number under the user's unique ID
+            databaseReference.setValue(number)
+                    .addOnSuccessListener(aVoid -> {
+                        // Update the progress text and show a confirmation message
+                        textProgress.setText("Last saved number: " + number);
+                        Toast.makeText(getContext(), "Number saved!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failure
+                        Toast.makeText(getContext(), "Failed to save number: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(getContext(), "Please enter a number", Toast.LENGTH_SHORT).show();
         }
-
-        // Clean up the data in the typed array once you have created the Post data ArrayList:
-        postsImageResources.recycle();
-
-        // Notify the adapter of the change.
-        miAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void loadSavedNumber() {
+        // Load the saved number from Firebase for the current user
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String savedNumber = dataSnapshot.getValue(String.class);
+                if (savedNumber != null) {
+                    textProgress.setText("Last saved number: " + savedNumber);
+                } else {
+                    textProgress.setText("No number saved yet.");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors
+                Toast.makeText(getContext(), "Failed to load data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
-
-
-//
-//
-//public class ProgressFragment extends Fragment {
-//
-//private FragmentProgressBinding binding;
-//
-//    public View onCreateView(@NonNull LayoutInflater inflater,
-//            ViewGroup container, Bundle savedInstanceState) {
-//        ProgressViewModel progressViewModel =
-//                new ViewModelProvider(this).get(ProgressViewModel.class);
-//
-//    binding = FragmentProgressBinding.inflate(inflater, container, false);
-//    View root = binding.getRoot();
-//
-//        final TextView textView = binding.textNotifications;
-//        progressViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-//        return root;
-//    }
-//
-//@Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        binding = null;
-//    }
-//}
