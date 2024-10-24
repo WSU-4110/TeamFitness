@@ -1,23 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tracker.TrackerFragment" >
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Circular Progress Bar for Percentage -->
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/circular_progress"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        app:donut_progress="54"
+        app:donut_max="100"
+        app:donut_finished_color="#FF4500"
+        app:donut_text_size="32sp"
+        app:donut_unfinished_color="#D3D3D3"
+        app:donut_background_color="#ffffff" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/textHome"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Home"-->
+<!--        android:textColor="#FF4500"-->
+<!--        android:textSize="18sp" />-->
+
+
+    <!-- Steps, Calories, and Weight Tracking -->
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:textColor="#FF4500"/>
+
+    <ProgressBar
+        android:id="@+id/progress_steps"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:max="100"
+        android:progress="45"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progress_steps"/>
 
     <TextView
-        android:id="@+id/text_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories"
+        android:textSize="18sp"
+        android:textColor="#FF4500"/>
+
+    <ProgressBar
+        android:id="@+id/progress_calories"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:max="100"
+        android:progress="60"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progress_calories"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weight"
+        android:textSize="18sp"
+        android:textColor="#4169E1"/>
+
+    <ProgressBar
+        android:id="@+id/progress_weight"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:max="100"
+        android:progress="75"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progress_weight"/>
+
+    <!-- Button to Add New Trackable -->
+    <ImageButton
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_add_circle"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Log of Tracked Events -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 mile run (-300 calories)"
+            android:textSize="16sp"
+            android:textColor="#FF4500"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18 minutes"
+            android:textSize="14sp"
+            android:textColor="#696969"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breakfast (+270 calories)"
+            android:textSize="16sp"
+            android:textColor="#FF4500"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Walk dog (-100 calories)"
+            android:textSize="16sp"
+            android:textColor="#FF4500"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</LinearLayout>

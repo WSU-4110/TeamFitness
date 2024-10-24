@@ -6,23 +6,28 @@ plugins {
 }
 
 buildscript{
-    repositories {
-        google()
-    }
+
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+
     dependencies{
         //classpath(libs.google.servicses)
 
+        //FireBase
         classpath("com.google.gms:google-services:4.4.2")
+
     }
 }
+
 /*
 allprojects{
     repositories{
         mavenCentral()
         google()
-        gradlePluginPortal()
+        //gradlePluginPortal()
     }
    }
 }
 */
-
