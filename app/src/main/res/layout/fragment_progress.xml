@@ -38,11 +38,11 @@
 
 
     <TextView
-        android:id="@+id/milestonesHeader"
+        android:id="@+id/recentActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
-        android:text="Milestones and Achievements"
+        android:text="Recent Activity"
         android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:scrollbars="horizontal" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
