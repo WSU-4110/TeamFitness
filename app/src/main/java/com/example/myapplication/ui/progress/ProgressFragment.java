@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class ProgressFragment extends Fragment {
 
     private DatabaseReference databaseReference;
@@ -120,4 +121,6 @@ public class ProgressFragment extends Fragment {
         });
     }
 }
+
+
 
