@@ -10,18 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.AppTheme.AppBarOverlay">
-
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:id="@+id/toolbar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?attr/actionBarSize"-->
-        <!--            android:background="?attr/colorPrimary"-->
-        <!--            app:popupTheme="@style/Theme.AppTheme.PopupOverlay" />-->
-
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <!-- Existing TextView for progress -->
+    <!-- TextView for progress -->
     <TextView
         android:id="@+id/text_progress"
         android:layout_width="match_parent"
@@ -36,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- Existing header for milestones and achievements -->
+    <!-- Header for milestones and achievements -->
     <TextView
         android:id="@+id/milestonesHeader"
         android:layout_width="match_parent"
@@ -45,7 +36,7 @@
         android:text="Milestones and Achievements"
         android:textSize="20sp" />
 
-    <!-- Existing RecyclerView for displaying achievements -->
+    <!-- RecyclerView for displaying achievements -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -53,7 +44,7 @@
         android:layout_marginTop="100dp"
         android:scrollbars="horizontal" />
 
-    <!-- New input field for user to enter a number -->
+    <!-- Input field for user to enter a number -->
     <EditText
         android:id="@+id/input_number"
         android:layout_width="match_parent"
@@ -62,7 +53,7 @@
         android:hint="Enter a number"
         android:inputType="number" />
 
-    <!-- New button to save the input -->
+    <!-- Button to save the input -->
     <Button
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
@@ -70,5 +61,4 @@
         android:text="Save"
         android:layout_gravity="center"
         android:layout_marginTop="16dp" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
