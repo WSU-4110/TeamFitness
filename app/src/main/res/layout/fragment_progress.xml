@@ -27,7 +27,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- Header for milestones and achievements -->
     <TextView
         android:id="@+id/recentActivity"
         android:layout_width="match_parent"
@@ -44,8 +43,9 @@
         android:layout_marginTop="100dp"
         android:scrollbars="horizontal" />
 
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-  
+
     <!-- Input field for user to enter a number -->
     <EditText
         android:id="@+id/input_number"
@@ -64,4 +64,5 @@
         android:text="Save"
         android:layout_gravity="center"
         android:layout_marginTop="16dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

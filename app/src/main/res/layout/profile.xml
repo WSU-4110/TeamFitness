@@ -172,6 +172,7 @@
                         android:textStyle="bold"
                         android:drawableStart="@drawable/exit"/>
 
+
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/HomeButton"
                         style="@android:style/Widget.Button"
