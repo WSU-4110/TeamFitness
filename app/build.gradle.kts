@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -47,6 +51,11 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
+
+    //
+    implementation("com.github.lzyzsd:circleprogress:1.1.0") //for tracker donut progress circle
+    implementation(libs.appcompat)
+    implementation(libs.material)
 
     // for Recycle & card view
     implementation(libs.cardview)
