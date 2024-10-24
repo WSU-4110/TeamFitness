@@ -47,6 +47,10 @@
     <string name="time">Time</string>
     <string name="notes">Notes</string>
 
+    <string name="amount">Amount</string>
+    <string name="time">Time</string>
+    <string name="notes">Notes</string>
+
     <string-array name="posts_titles">
         <item>Post Title 1</item>
         <item>Post Title 2</item>
