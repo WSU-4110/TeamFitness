@@ -106,7 +106,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#3963d5"
-                android:text="Back to Login"
+                android:text="@string/back_to_login_sign_up"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
 

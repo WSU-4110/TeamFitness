@@ -19,6 +19,9 @@
             android:name=".SignUpPage"
             android:exported="false"/>
         <activity
+            android:name=".EmailVerificationActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Profile"
             android:exported="false"/>
         <activity

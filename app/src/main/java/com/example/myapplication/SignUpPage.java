@@ -75,26 +75,25 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     private void firebaseSignUp(String userEmail, String userPassword){
-
-            fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Registration in was successful
-                        Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+        fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Registration in was successful
+                    Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpPage.this, EmailVerificationActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                        // Email already in the database
+                        Toast.makeText(SignUpPage.this, "Email already in use", Toast.LENGTH_SHORT).show();
                     } else {
-                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                            // Email already in the database
-                            Toast.makeText(SignUpPage.this, "Email already in use", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Registration failed for some other reason
-                            Toast.makeText(SignUpPage.this, "Registration in failed!", Toast.LENGTH_SHORT).show();
-                        }
+                        // Registration failed for some other reason
+                        Toast.makeText(SignUpPage.this, "Registration in failed!", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            }
+        });
     };
 
     @Override
@@ -133,14 +132,10 @@ public class SignUpPage extends AppCompatActivity {
 
                 // Checks the users inputs
                 if (emailCheck(userEmail) && passwordCheck(userPassword)
-                        && passwordSame(userPassword, userConfirmPassword)) 
+                        && passwordSame(userPassword, userConfirmPassword))
                 {
-                    firebaseSignUp(userEmail, userPassword);
 
-                        // dont know if neeeded:
-                        // Intent intent = new Intent(SignUpPage.this, HomeActivity.class);
-                        // startActivity(intent);
-                        // finish();
+                    firebaseSignUp(userEmail, userPassword);
                 }
                 // If the user enters an incorrect field it will let them know
                 else {
