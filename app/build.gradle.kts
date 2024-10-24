@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.com.github.bumptech.glide.glide2)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
+    implementation(libs.preference)
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)

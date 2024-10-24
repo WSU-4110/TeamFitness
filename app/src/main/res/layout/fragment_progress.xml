@@ -29,11 +29,11 @@
 
     <!-- Header for milestones and achievements -->
     <TextView
-        android:id="@+id/milestonesHeader"
+        android:id="@+id/recentActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
-        android:text="Milestones and Achievements"
+        android:text="Recent Activity"
         android:textSize="20sp" />
 
     <!-- RecyclerView for displaying achievements -->
@@ -44,6 +44,9 @@
         android:layout_marginTop="100dp"
         android:scrollbars="horizontal" />
 
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+  
     <!-- Input field for user to enter a number -->
     <EditText
         android:id="@+id/input_number"
@@ -52,6 +55,7 @@
         android:layout_margin="16dp"
         android:hint="Enter a number"
         android:inputType="number" />
+
 
     <!-- Button to save the input -->
     <Button
