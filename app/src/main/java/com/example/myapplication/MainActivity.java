@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -55,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     Button loginButton;
+    Button verifyLogin;
     Button signUp;
     FirebaseAuth fAuth;
 
 
-
     private void firebaseSignUp(String userEmail, String userPassword){
+
 
         fAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -102,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         });
     };
 
+    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signUpButton);
 
+        verifyLogin = findViewById(R.id.verifyButton);
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,9 +127,28 @@ public class MainActivity extends AppCompatActivity {
                 String userEmail = username.getText().toString();
                 String userPassword = password.getText().toString();
 
-                fAuth = FirebaseAuth.getInstance();
 
-                firebaseSignUp(userEmail, userPassword);
+                FirebaseAuth mAuth;
+                mAuth = FirebaseAuth.getInstance();
+
+                fAuth = FirebaseAuth.getInstance();
+                final FirebaseUser user = fAuth.getCurrentUser();
+                assert user != null;
+                user.reload().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (user.isEmailVerified()) {
+                            // User is verified
+                            firebaseSignUp(userEmail, userPassword);
+                        } else {
+                            // Email is still not verified
+                            Toast.makeText(MainActivity.this, "Email not verified yet.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // Handle error in reloading
+                        Toast.makeText(MainActivity.this, "Failed to reload user information.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
         signUp.setOnClickListener(new View.OnClickListener(){
@@ -129,6 +156,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 // If the user clicks on the sign up button it redirects them to the registration page
                 Intent intent = new Intent(MainActivity.this, SignUpPage.class );
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        verifyLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EmailVerificationActivity.class);
                 startActivity(intent);
                 finish();
             }
