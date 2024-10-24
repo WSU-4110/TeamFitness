@@ -75,6 +75,7 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     private void firebaseSignUp(String userEmail, String userPassword){
+
         fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -94,6 +95,7 @@ public class SignUpPage extends AppCompatActivity {
                 }
             }
         });
+
     };
 
     @Override
@@ -136,6 +138,7 @@ public class SignUpPage extends AppCompatActivity {
                 {
 
                     firebaseSignUp(userEmail, userPassword);
+
                 }
                 // If the user enters an incorrect field it will let them know
                 else {

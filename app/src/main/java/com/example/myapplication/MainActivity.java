@@ -12,6 +12,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -46,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
 
 
-
     private void firebaseSignUp(String userEmail, String userPassword){
+
 
         fAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -90,15 +106,19 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signUpButton);
+
         verifyLogin = findViewById(R.id.verifyButton);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 // Mock validation (replace with actual validation logic)
                 String userEmail = username.getText().toString();
                 String userPassword = password.getText().toString();
+
 
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
@@ -127,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Failed to reload user information.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
         signUp.setOnClickListener(new View.OnClickListener(){
