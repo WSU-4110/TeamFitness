@@ -21,25 +21,17 @@
         app:donut_unfinished_color="#D3D3D3"
         app:donut_background_color="#ffffff" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textHome"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Home"-->
-<!--        android:textColor="#FF4500"-->
-<!--        android:textSize="18sp" />-->
-
-
     <!-- Steps, Calories, and Weight Tracking -->
-    <TextView
 
+
+    <TextView
+        android:id="@+id/stepsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Steps"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:textColor="#FF4500"/>
+        android:text="Steps: 0"
+        android:textSize="16sp"
+        android:textColor="#FF4500"
+        android:layout_marginBottom="4dp" />
 
     <ProgressBar
         android:id="@+id/progress_steps"
@@ -51,12 +43,15 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:progressDrawable="@drawable/progress_steps"/>
 
+
     <TextView
+        android:id="@+id/caloriesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calories"
-        android:textSize="18sp"
-        android:textColor="#FF4500"/>
+        android:text="Calories: 0"
+        android:textSize="16sp"
+        android:textColor="#FF4500"
+        android:layout_marginBottom="4dp" />
 
     <ProgressBar
         android:id="@+id/progress_calories"
@@ -68,12 +63,15 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:progressDrawable="@drawable/progress_calories"/>
 
+
     <TextView
+        android:id="@+id/weightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight"
-        android:textSize="18sp"
-        android:textColor="#4169E1"/>
+        android:text="Weight: 0"
+        android:textSize="16sp"
+        android:textColor="#4169E1"
+        android:layout_marginBottom="4dp" />
 
     <ProgressBar
         android:id="@+id/progress_weight"
