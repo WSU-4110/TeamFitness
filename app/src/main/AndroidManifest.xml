@@ -17,7 +17,12 @@
             android:exported="false" />
         <activity
             android:name=".Profile" />
-            android:exported="false" />
+        <activity
+            android:name=".ui.ProfileActivity" />
+        <activity
+            android:name=".model.ProfileData" />
+        <activity
+            android:name=".viewmodel.ProfileViewModel" />
         <activity
             android:name=".AccountActivity"
             android:exported="false" />
