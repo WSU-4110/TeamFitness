@@ -10,25 +10,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import androidx.annotation.Nullable;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-public class ProgressFragment extends Fragment {
+// ProgressFragment set as Observer of ViewModel
+public class ProgressFragment extends Fragment implements Observer {
 
     private DatabaseReference databaseReference;
     private EditText inputNumber;
@@ -37,62 +35,65 @@ public class ProgressFragment extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
+    private ProgressViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Get Layout
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        // Initialize Firebase Auth and Database
+        // Initialize Firebase and Get User Data
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
 
         if (currentUser != null) {
-            // Reference to current user's data in Firebase Database
+            // Get Users Number
             databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("numbers");
         } else {
-            // Handle case when user is not logged in (if needed)
+            //No User Logged In
             Toast.makeText(getContext(), "User not logged in!", Toast.LENGTH_SHORT).show();
             return view;
         }
 
-        // Initialize UI components
+        // UI Stuff
         inputNumber = view.findViewById(R.id.input_number);
         buttonSave = view.findViewById(R.id.button_save);
         textProgress = view.findViewById(R.id.text_progress);
         recyclerView = view.findViewById(R.id.recyclerView);
-
-        // Setup RecyclerView (add your adapter later)
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Load user's saved number when fragment is created
+        buttonSave.setOnClickListener(v -> saveNumberToFirebase());
         loadSavedNumber();
 
-        // Set up Save button click listener
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveNumberToFirebase();
-            }
-        });
+        // Observer Setup
+        viewModel = new ViewModelProvider(this).get(ProgressViewModel.class);
+        viewModel.registerObserver(this);
 
         return view;
     }
 
+    @Override // Destroy Observer
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.removeObserver(this);
+    }
+
+
+    @Override //Update Observer
+    public void update() {
+        loadSavedNumber();
+    }
+
+    //Save Number Under User Id And Write To Firebase
     private void saveNumberToFirebase() {
         String number = inputNumber.getText().toString().trim();
-
         if (!number.isEmpty()) {
-            // Save the number under the user's unique ID
             databaseReference.setValue(number)
                     .addOnSuccessListener(aVoid -> {
-                        // Update the progress text and show a confirmation message
                         textProgress.setText("Last saved number: " + number);
-                        Toast.makeText(getContext(), "Number saved!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Number saved", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
-                        // Handle failure
                         Toast.makeText(getContext(), "Failed to save number: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         } else {
@@ -100,8 +101,8 @@ public class ProgressFragment extends Fragment {
         }
     }
 
+    //Load Saved Number And Write To Firebase
     private void loadSavedNumber() {
-        // Load the saved number from Firebase for the current user
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -121,6 +122,3 @@ public class ProgressFragment extends Fragment {
         });
     }
 }
-
-
-
