@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -48,6 +52,11 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
 
+    //
+    implementation("com.github.lzyzsd:circleprogress:1.1.0") //for tracker donut progress circle
+    implementation(libs.appcompat)
+    implementation(libs.material)
+
     // for Recycle & card view
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
@@ -58,7 +67,6 @@ dependencies {
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)
 
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -67,7 +75,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
 
     // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.auth.ktx)
 
     // Also add the dependency for the Google Play services library and specify its version
@@ -75,5 +82,9 @@ dependencies {
 
     implementation(libs.firebase.analytics)
 
+    // Firebase Realtime Database
+    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
 
+    // Optional: Firebase Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
 }
