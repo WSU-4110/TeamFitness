@@ -36,8 +36,6 @@
 
     <string name="fab_desc">floating button description</string>
 
-    <string name="log_out">Log Out</string>
-
     <string-array name="posts_titles">
         <item>Post Title 1</item>
         <item>Post Title 2</item>
