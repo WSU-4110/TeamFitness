@@ -44,7 +44,6 @@
         android:scrollbars="horizontal" />
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!-- Input field for user to enter a number -->
     <EditText

@@ -43,5 +43,41 @@
             android:padding="16dp"
             android:text="@string/subtitle_detail_text" />
 
+        <!-- Comment Section -->
+        <TextView
+            android:id="@+id/commentsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/subTitleDetail"
+            android:padding="16dp"
+            android:text="Comments"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/commentsLabel"
+            android:padding="16dp"/>
+
+        <EditText
+            android:id="@+id/commentInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/commentsRecyclerView"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Add a comment"
+            android:padding="16dp"/>
+
+        <Button
+            android:id="@+id/submitCommentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/commentInput"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"
+            android:text="Submit"
+            android:padding="16dp"/>
     </RelativeLayout>
 </ScrollView>

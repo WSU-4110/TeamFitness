@@ -1,4 +1,5 @@
 package com.example.myapplication;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,15 +11,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.databinding.ActivityHomeBinding;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
-import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -45,33 +41,27 @@ public class HomeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isFabOpen) {
-                    fab_workoutroutine.setVisibility(View.GONE);
-                    fab_post.setVisibility(View.GONE);
-                    isFabOpen = false;
-                } else {
-                    fab_workoutroutine.setVisibility(View.VISIBLE);
-                    fab_post.setVisibility(View.VISIBLE);
-                    isFabOpen = true;
-                }
+                toggleFABMenu();
             }
         });
+
         fab_workoutroutine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(HomeActivity.this, WorkoutRoutineCreationActivity.class);
                 startActivity(intent);
+                hideFABMenu();
             }
         });
+
         fab_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, PostCreationActivity.class);
                 startActivity(intent);
+                hideFABMenu();
             }
         });
-
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -85,7 +75,6 @@ public class HomeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,5 +93,25 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void toggleFABMenu() {
+        if (isFabOpen) {
+            hideFABMenu();
+        } else {
+            showFABMenu();
+        }
+    }
+
+    private void showFABMenu() {
+        fab_workoutroutine.setVisibility(View.VISIBLE);
+        fab_post.setVisibility(View.VISIBLE);
+        isFabOpen = true;
+    }
+
+    private void hideFABMenu() {
+        fab_workoutroutine.setVisibility(View.GONE);
+        fab_post.setVisibility(View.GONE);
+        isFabOpen = false;
     }
 }
