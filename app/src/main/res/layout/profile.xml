@@ -163,16 +163,14 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/background_1"
+                        android:drawableStart="@drawable/ic_exit"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:text="@string/log_out"
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:drawableStart="@drawable/ic_exit"/>
-                        android:drawableStart="@drawable/exit"/>
-
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/HomeButton"
@@ -187,7 +185,6 @@
                         android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

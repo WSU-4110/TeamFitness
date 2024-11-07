@@ -20,29 +20,18 @@
     <string name="prof_img_desc1">Profile</string>
     <string name="app_name">TeamFitness</string>
 
-    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
-    consectetur adipiscing elit. Praesent ultrices congue rutrum.
-    Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
-    eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum
-    blandit, dolor diam fringilla tellus, eu euismod mauris neque
-    at neque.</string>
+    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices congue rutrum. Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum blandit, dolor diam fringilla tellus, eu euismod mauris neque at neque.</string>
     <string name="milestone_posts_subtitle_placeholder">(60 min)</string>
     <string name="milestone_workout_title_placeholder">Jogging</string>
     <string name="log_out">Log Out</string>
-
-    <string name="register">Register</string>
-    <string name="confirm_email">Confirm Email</string>
-    <string name="back_to_login">Back to Login</string>
-    <string name="back_to_login_sign_up">Back to Login</string>
-
-
     <string name="amount">Amount</string>
     <string name="time">Time</string>
     <string name="notes">Notes</string>
+    <string name="register">Register</string>
+    <string name="confirm_email">Confirm Email</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="fab_desc">Floating button description</string>
 
-
-    <string name="fab_desc">floating button description</string>
-  
     <string-array name="posts_titles">
         <item>Post Title 1</item>
         <item>Post Title 2</item>
@@ -82,7 +71,6 @@
         <item>@drawable/img_running</item>
     </array>
 
-    <!--    Used for milestones  -->
     <array name="milestone_posts_images">
         <item>@drawable/img_milestonedefault</item>
         <item>@drawable/img_milestonedefault</item>
@@ -95,24 +83,16 @@
         <item>@drawable/img_milestonedefault</item>
         <item>@drawable/img_milestonedefault</item>
     </array>
-    <string name="title_activity_settings">SettingsActivity</string>
 
-    <!-- Preference Titles -->
+    <string name="title_activity_settings">SettingsActivity</string>
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
-    <string name="fab_desc_post">fab description post</string>
-
-
+    <string name="fab_desc_post">FAB description post</string>
 </resources>
