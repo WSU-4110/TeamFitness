@@ -3,7 +3,6 @@
 
     <item
         android:id="@+id/navigation_tracker"
-
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:icon="@drawable/progress"
         android:title="@string/title_tracker" />

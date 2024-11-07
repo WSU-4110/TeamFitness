@@ -170,7 +170,6 @@
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
                         android:textStyle="bold"
-
                         android:drawableStart="@drawable/ic_exit"/>
                         android:drawableStart="@drawable/exit"/>
 
