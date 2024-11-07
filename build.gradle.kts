@@ -15,6 +15,7 @@ buildscript{
     dependencies{
         //classpath(libs.google.servicses)
 
+        //FireBase
         classpath("com.google.gms:google-services:4.4.2")
 
     }
