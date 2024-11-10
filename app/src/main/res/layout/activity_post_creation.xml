@@ -27,15 +27,26 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <EditText
+            android:id="@+id/postTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:hint="Enter post title"
+            android:inputType="text"
+            android:background="@android:drawable/edit_text" />
+
+        <EditText
             android:id="@+id/postDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:hint="Write your post description here"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:minLines="3"
-            android:background="@android:drawable/edit_text" />
+            android:background="@android:drawable/edit_text"
+            android:layout_below="@id/postTitle" />
 
         <ImageView
             android:id="@+id/postImage"

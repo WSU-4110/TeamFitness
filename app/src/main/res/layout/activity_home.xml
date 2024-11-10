@@ -71,7 +71,7 @@
         app:backgroundTint="@color/orange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_create" />
+        app:srcCompat="@drawable/ic_add_workoutroutine" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_post"
@@ -83,6 +83,6 @@
         app:backgroundTint="@color/orange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_create" />
+        app:srcCompat="@drawable/ic_add_post" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
