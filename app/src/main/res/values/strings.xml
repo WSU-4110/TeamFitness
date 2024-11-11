@@ -34,11 +34,6 @@
     <string name="back_to_login">Back to Login</string>
     <string name="back_to_login_sign_up">Back to Login</string>
 
-    <string name="register">Register</string>
-    <string name="confirm_email">Confirm Email</string>
-    <string name="back_to_login">Back to Login</string>
-    <string name="back_to_login_sign_up">Back to Login</string>
-
 
 
     <string name="amount">Amount</string>
@@ -46,14 +41,6 @@
     <string name="notes">Notes</string>
 
     <string name="fab_desc">floating button description</string>
-
-    <string name="amount">Amount</string>
-    <string name="time">Time</string>
-    <string name="notes">Notes</string>
-
-    <string name="fab_desc">floating button description</string>
-
-    <string name="log_out">Log Out</string>
 
     <string-array name="posts_titles">
         <item>Post Title 1</item>
