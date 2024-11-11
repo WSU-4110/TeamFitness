@@ -25,8 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WorkoutRoutineCreationActivity extends AppCompatActivity {
-    private TextView labelSets, labelReps, labelDistance, labelDuration;
-    private EditText inputSets, inputReps, inputDistance, inputDuration, inputWorkoutName;
+    private TextView labelSets, labelReps, labelDistance, labelDuration, labelWeight;
+    private EditText inputSets, inputReps, inputDistance, inputDuration, inputWorkoutName, inputWeight;
 
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
@@ -43,6 +43,8 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
         inputSets = findViewById(R.id.input_sets);
         labelReps = findViewById(R.id.label_reps);
         inputReps = findViewById(R.id.input_reps);
+        labelWeight = findViewById(R.id.label_weight);
+        inputWeight = findViewById(R.id.input_weight);
         labelDistance = findViewById(R.id.label_distance);
         inputDistance = findViewById(R.id.input_distance);
         labelDuration = findViewById(R.id.label_duration);
@@ -66,6 +68,8 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
         inputSets.setVisibility(View.GONE);
         labelReps.setVisibility(View.GONE);
         inputReps.setVisibility(View.GONE);
+        labelWeight.setVisibility(View.GONE);
+        inputWeight.setVisibility(View.GONE);
         labelDistance.setVisibility(View.GONE);
         inputDistance.setVisibility(View.GONE);
         labelDuration.setVisibility(View.GONE);
@@ -87,6 +91,8 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
             inputSets.setVisibility(View.GONE);
             labelReps.setVisibility(View.GONE);
             inputReps.setVisibility(View.GONE);
+            labelWeight.setVisibility(View.GONE);
+            inputWeight.setVisibility(View.GONE);
             labelDistance.setVisibility(View.VISIBLE);
             inputDistance.setVisibility(View.VISIBLE);
             labelDuration.setVisibility(View.VISIBLE);
@@ -134,6 +140,8 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
             inputSets.setVisibility(View.VISIBLE);
             labelReps.setVisibility(View.VISIBLE);
             inputReps.setVisibility(View.VISIBLE);
+            labelWeight.setVisibility(View.VISIBLE);
+            inputWeight.setVisibility(View.VISIBLE);
             labelDistance.setVisibility(View.GONE);
             inputDistance.setVisibility(View.GONE);
             labelDuration.setVisibility(View.GONE);
@@ -149,6 +157,7 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
                     String strWorkoutName = inputWorkoutName.getText().toString();
                     String strSets = inputSets.getText().toString();
                     String strReps = inputReps.getText().toString();
+                    String strWeight = inputWeight.getText().toString();
 
                     // Gets the currents users ID so that only this user is able to see their input
                     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -163,6 +172,7 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
                     tableData.put("Workout Name", strWorkoutName);
                     tableData.put("Sets", strSets);
                     tableData.put("Reps", strReps);
+                    tableData.put("Weight", strWeight);
 
                     // Creates a new table for the users inputs under the tables section in firebase
                     db.child("users").child(userId).child("tables").child(tableId)

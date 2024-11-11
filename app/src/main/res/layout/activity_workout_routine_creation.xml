@@ -98,6 +98,23 @@
         android:minHeight="48dp"/>
 
     <TextView
+        android:id="@+id/label_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weight"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/input_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Weight"
+        android:inputType="number"
+        android:padding="16dp"
+        android:minHeight="48dp"/>
+
+    <TextView
         android:id="@+id/label_sets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
