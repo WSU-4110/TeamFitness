@@ -81,7 +81,7 @@ public class PostCreationActivity extends AppCompatActivity {
                 String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 // Gets the table ID of the table section in our Firebase database
-                String tableId = db.child("users").child(userId).child("tables").push().getKey();
+                String tableId = db.child("users").child(userId).child("WorkoutRoutines").push().getKey();
 
                 // Creating a spot for the users inputs
                 Map<String, Object> tableData = new HashMap<>();
@@ -91,7 +91,7 @@ public class PostCreationActivity extends AppCompatActivity {
                 tableData.put("Post Description", strDescription);
 
                 // Creates a new table under the tables section in firebase
-                db.child("users").child(userId).child("tables").child(tableId)
+                db.child("users").child(userId).child("WorkoutRoutines").child(tableId)
                         .setValue(tableData)
                         .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully written!"))
                         .addOnFailureListener(e -> Log.w("Firestore", "Error writing document", e));
