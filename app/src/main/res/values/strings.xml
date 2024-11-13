@@ -20,12 +20,6 @@
     <string name="prof_img_desc1">Profile</string>
     <string name="app_name">TeamFitness</string>
 
-    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
-    consectetur adipiscing elit. Praesent ultrices congue rutrum.
-    Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
-    eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum
-    blandit, dolor diam fringilla tellus, eu euismod mauris neque
-    at neque.</string>
     <string name="milestone_posts_subtitle_placeholder">(60 min)</string>
     <string name="milestone_workout_title_placeholder">Jogging</string>
     <string name="log_out">Log Out</string>
