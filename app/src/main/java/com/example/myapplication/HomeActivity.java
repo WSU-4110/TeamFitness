@@ -1,30 +1,43 @@
+// Updated HomeActivity.java
 package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import com.github.lzyzsd.circleprogress.DonutProgress;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.databinding.ActivityHomeBinding;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import android.view.View;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private FloatingActionButton fab, fab_workoutroutine, fab_post;
     private boolean isFabOpen = false;
+
+    private DonutProgress circularProgress;
+    private ProgressBar progressSteps, progressCalories, progressWeight;
+    private TextView textStats;
+
+    private DatabaseReference database;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,32 +52,30 @@ public class HomeActivity extends AppCompatActivity {
         fab_workoutroutine = findViewById(R.id.fab_workoutroutine);
         fab_post = findViewById(R.id.fab_post);
 
+        circularProgress = findViewById(R.id.circular_progress);
+        progressSteps = findViewById(R.id.progress_steps);
+        progressCalories = findViewById(R.id.progress_calories);
+        progressWeight = findViewById(R.id.progress_weight);
+        textStats = findViewById(R.id.textStats);
+
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
+
         fab_workoutroutine.setVisibility(View.GONE);
         fab_post.setVisibility(View.GONE);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleFABMenu();
-            }
+        fab.setOnClickListener(view -> toggleFABMenu());
+
+        fab_workoutroutine.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, WorkoutRoutineCreationActivity.class);
+            startActivity(intent);
+            hideFABMenu();
         });
 
-        fab_workoutroutine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, WorkoutRoutineCreationActivity.class);
-                startActivity(intent);
-                hideFABMenu();
-            }
-        });
-
-        fab_post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, PostCreationActivity.class);
-                startActivity(intent);
-                hideFABMenu();
-            }
+        fab_post.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, PostCreationActivity.class);
+            startActivity(intent);
+            hideFABMenu();
         });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -78,6 +89,8 @@ public class HomeActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        fetchUserData();
     }
 
     @Override
@@ -117,5 +130,56 @@ public class HomeActivity extends AppCompatActivity {
         fab_workoutroutine.setVisibility(View.GONE);
         fab_post.setVisibility(View.GONE);
         isFabOpen = false;
+    }
+
+    private void fetchUserData() {
+        String userId = auth.getCurrentUser().getUid();
+        database.child("users").child(userId).child("tables")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            int totalDistance = 0;
+                            int totalDuration = 0;
+                            int totalReps = 0;
+                            int totalSets = 0;
+
+                            for (DataSnapshot tableSnapshot : snapshot.getChildren()) {
+                                if (tableSnapshot.child("Distance").exists()) {
+                                    totalDistance += Integer.parseInt(tableSnapshot.child("Distance").getValue(String.class));
+                                }
+                                if (tableSnapshot.child("Duration").exists()) {
+                                    totalDuration += Integer.parseInt(tableSnapshot.child("Duration").getValue(String.class));
+                                }
+                                if (tableSnapshot.child("Reps").exists()) {
+                                    totalReps += Integer.parseInt(tableSnapshot.child("Reps").getValue(String.class));
+                                }
+                                if (tableSnapshot.child("Sets").exists()) {
+                                    totalSets += Integer.parseInt(tableSnapshot.child("Sets").getValue(String.class));
+                                }
+                            }
+
+                            updateUI(totalDistance, totalDuration, totalReps, totalSets);
+                        } else {
+                            Log.e("Firebase", "No workout data found.");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e("Firebase", "Error fetching data: " + error.getMessage());
+                    }
+                });
+    }
+
+    private void updateUI(int distance, int duration, int reps, int sets) {
+        int totalProgress = (distance + duration + reps + sets) / 4;
+        circularProgress.setProgress(totalProgress);
+
+        progressSteps.setProgress(distance);
+        progressCalories.setProgress(duration);
+        progressWeight.setProgress(reps + sets);
+
+        textStats.setText("Today's Workout Summary");
     }
 }
