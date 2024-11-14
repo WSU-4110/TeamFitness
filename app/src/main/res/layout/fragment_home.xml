@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:padding="16dp">
 
     <!-- Circular Progress Bar for Percentage -->
     <com.github.lzyzsd.circleprogress.DonutProgress
@@ -14,21 +13,23 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        app:donut_progress="54"
-        app:donut_max="100"
-        app:donut_finished_color="#FF4500"
-        app:donut_text_size="32sp"
-        app:donut_unfinished_color="#D3D3D3"
-        app:donut_background_color="#ffffff" />
+        app:donut_background_color="#ffffff"
 
-<!--    <TextView-->
-<!--        android:id="@+id/textHome"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Home"-->
-<!--        android:textColor="#FF4500"-->
-<!--        android:textSize="18sp" />-->
+        app:donut_finished_color="#FF4500"
+        app:donut_max="100"
+        app:donut_progress="0"
+        app:donut_text_size="32sp"
+        app:donut_unfinished_color="#D3D3D3" />
+
+    <TextView
+        android:id="@+id/textStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:text="Tracker"
+        android:textColor="#FF4500"
+        android:textSize="20sp" />
 
 
     <!-- Steps, Calories, and Weight Tracking -->
@@ -36,54 +37,54 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Steps"
-        android:textSize="18sp"
         android:layout_marginTop="16dp"
-        android:textColor="#FF4500"/>
+        android:text="Steps (distance)"
+        android:textColor="#FF4500"
+        android:textSize="18sp" />
 
     <ProgressBar
         android:id="@+id/progress_steps"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="10dp"
-        android:max="100"
-        android:progress="45"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progress_steps"/>
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:max="10000"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_steps" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calories"
-        android:textSize="18sp"
-        android:textColor="#FF4500"/>
-
-    <ProgressBar
-        android:id="@+id/progress_calories"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="10dp"
-        android:max="100"
-        android:progress="60"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progress_calories"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weight"
-        android:textSize="18sp"
-        android:textColor="#4169E1"/>
+        android:text="Weights (reps) "
+        android:textColor="#4169E1"
+        android:textSize="18sp" />
 
     <ProgressBar
         android:id="@+id/progress_weight"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="10dp"
-        android:max="100"
-        android:progress="75"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progress_weight"/>
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_weight" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories Lost"
+        android:textColor="#E91E63"
+        android:textSize="18sp" />
+
+    <ProgressBar
+        android:id="@+id/progress_calories"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="20dp"
+        android:max="500"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_calories" />
 
     <!-- Button to Add New Trackable -->
     <ImageButton
@@ -91,46 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ic_add_circle"
+        android:layout_marginBottom="16dp"
         android:background="?android:attr/selectableItemBackground"
-        android:layout_marginBottom="16dp"/>
+        android:src="@drawable/ic_add_circle" />
 
-    <!-- Log of Tracked Events -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2 mile run (-300 calories)"
-            android:textSize="16sp"
-            android:textColor="#FF4500"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="18 minutes"
-            android:textSize="14sp"
-            android:textColor="#696969"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breakfast (+270 calories)"
-            android:textSize="16sp"
-            android:textColor="#FF4500"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Walk dog (-100 calories)"
-            android:textSize="16sp"
-            android:textColor="#FF4500"
-            android:layout_marginTop="8dp"/>
-
-    </LinearLayout>
 </LinearLayout>

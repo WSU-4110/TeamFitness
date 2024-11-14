@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Current Progress Display -->
+    <TextView
+        android:id="@+id/current_progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Progress: 0/100"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Input Field for New Max Value -->
+    <EditText
+        android:id="@+id/input_new_max"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter new maximum value"
+        android:inputType="number" />
+
+    <!-- Confirm Button -->
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

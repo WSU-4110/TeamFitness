@@ -86,8 +86,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         // Member Variables for the TextViews
         private TextView mTitleText;
-        private TextView mInfoText;
-        private ImageView mPostsImage;
 
         /**
          * Constructor for the ViewHolder, used in onCreateViewHolder().
@@ -98,9 +96,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             super(itemView);
 
             // Initialize the views.
-            mTitleText = itemView.findViewById(R.id.title);
-            mInfoText = itemView.findViewById(R.id.subTitle);
-            mPostsImage = itemView.findViewById(R.id.postsImage);
+            mTitleText = itemView.findViewById(R.id.workoutRoutineTitle);
 
             // Set the OnClickListener to the entire view.
             itemView.setOnClickListener(this);
@@ -109,8 +105,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         void bindTo(Post currentPost){
             // Populate the textviews with data.
             mTitleText.setText(currentPost.getTitle());
-            mInfoText.setText(currentPost.getInfo());
-            Glide.with(mContext).load(currentPost.getImageResource()).into(mPostsImage);
         }
 
 
@@ -122,8 +116,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
             Intent detailIntent = new Intent(mContext, PostDetailActivity.class);
             detailIntent.putExtra("title", currentPost.getTitle());
-            detailIntent.putExtra("image_resource",
-                    currentPost.getImageResource());
+//            detailIntent.putExtra("image_resource",
+//                    currentPost.getImageResource());
             mContext.startActivity(detailIntent);
 
         }
