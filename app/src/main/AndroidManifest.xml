@@ -56,6 +56,11 @@
             android:exported="false" />
 
         <activity
+
+            android:name=".EmailVerificationActivity"
+            android:exported="false"/>
+        <activity
+                  
             android:name=".Profile"
             android:exported="false" />
 
@@ -69,9 +74,15 @@
             android:name=".EmailVerificationActivity"
             android:exported="false"/>
         <activity
+
+            android:name=".EmailVerificationActivity"
+            android:exported="false"/>
+        <activity
+                  
             android:name=".Profile"
             android:exported="false"/>
         <activity
+
             android:name=".PostDetailActivity"
             android:exported="false" />
 
