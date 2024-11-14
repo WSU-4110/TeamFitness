@@ -26,6 +26,23 @@
             android:orientation="vertical"
             android:padding="0dp">
 
+            <!-- Workout Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Workout Routine Title"
+                android:textSize="24sp"
+                android:padding="8dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_workout_routine_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter workout routine title"
+                android:padding="16dp"
+                android:minHeight="48dp" />
+
             <LinearLayout
                 android:id="@+id/workout_container"
                 android:layout_width="match_parent"
