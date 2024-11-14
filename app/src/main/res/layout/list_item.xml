@@ -8,40 +8,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/postsImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/postsImage"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:adjustViewBounds="true"/>-->
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/workoutRoutineTitle"
             style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_alignBottom="@id/postsImage"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:textColor="?android:textColorSecondary"
+            android:padding="48dp"
             android:text="@string/title_placeholder" />
 
-        <TextView
-            android:id="@+id/userTitle"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/postsImage"
-            android:textColor="?android:textColorSecondary"
-            android:padding="8dp"
-            android:text="@string/user_placeholder" />
-
-        <TextView
-            android:id="@+id/subTitle"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userTitle"
-            android:padding="8dp"
-            android:text="@string/posts_info_placeholder" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

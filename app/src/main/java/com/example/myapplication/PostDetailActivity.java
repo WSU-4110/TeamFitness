@@ -1,30 +1,29 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostDetailActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private WorkoutRoutineAdapter adapter;
+    private List<WorkoutRoutine> workoutRoutineList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_post_detail);
 
-        // initialize the views
-        TextView postsTitle = findViewById(R.id.titleDetail);
-        ImageView postsImage = findViewById(R.id.postsImageDetail);
+        recyclerView = findViewById(R.id.workout_routine_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // set the text from the intent extra
-        postsTitle.setText(getIntent().getStringExtra("title"));
-        // load the image using glide and intent extra
-        Glide.with(this).load(getIntent().getIntExtra("image_resource",0))
-                .into(postsImage);
+        workoutRoutineList = new ArrayList<>(); // Replace this with actual data from your database
+        adapter = new WorkoutRoutineAdapter(this, workoutRoutineList);
+        recyclerView.setAdapter(adapter);
+
+        // Load data from the database or pass the data from another activity
     }
 }

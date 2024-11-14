@@ -44,43 +44,38 @@
     at neque.</string>
 
     <string-array name="posts_titles">
-        <item>Post Title 1</item>
-        <item>Post Title 2</item>
-        <item>Post Title 3</item>
-        <item>Post Title 4</item>
-        <item>Post Title 5</item>
-        <item>Post Title 6</item>
-        <item>Post Title 7</item>
-        <item>Post Title 8</item>
-        <item>Post Title 9</item>
-        <item>Post Title 10</item>
+        <item>Workout Routine Title 1</item>
+        <item>Workout Routine Title 2</item>
+        <item>Workout Routine Title 3</item>
+        <item>Workout Routine Title 4</item>
+        <item>Workout Routine Title 5</item>
+        <item>Workout Routine Title 6</item>
+        <item>Workout Routine Title 7</item>
+        <item>Workout Routine Title 8</item>
     </string-array>
 
-    <string-array name="posts_info">
-        <item>Post Info 1</item>
-        <item>Post Info 2</item>
-        <item>Post Info 3</item>
-        <item>Post Info 4</item>
-        <item>Post Info 5</item>
-        <item>Post Info 6</item>
-        <item>Post Info 7</item>
-        <item>Post Info 8</item>
-        <item>Post Info 9</item>
-        <item>Post Info 10</item>
-    </string-array>
+<!--    <string-array name="posts_info">-->
+<!--        <item>Post Info 1</item>-->
+<!--        <item>Post Info 2</item>-->
+<!--        <item>Post Info 3</item>-->
+<!--        <item>Post Info 4</item>-->
+<!--        <item>Post Info 5</item>-->
+<!--        <item>Post Info 6</item>-->
+<!--        <item>Post Info 7</item>-->
+<!--    </string-array>-->
 
-    <array name="posts_images">
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-    </array>
+<!--    <array name="posts_images">-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--    </array>-->
 
     <!--    Used for milestones  -->
     <array name="milestone_posts_images">

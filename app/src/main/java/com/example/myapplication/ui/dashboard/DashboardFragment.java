@@ -86,23 +86,18 @@ public class DashboardFragment extends Fragment {
         // Get the resources from the XML file.
         String[] postsList = getResources()
                 .getStringArray(R.array.posts_titles);
-        String[] postsInfo = getResources()
-                .getStringArray(R.array.posts_info);
 
         // Clear the existing data (to avoid duplication).
         mPostsData.clear();
-        TypedArray postsImageResources =
-                getResources().obtainTypedArray(R.array.posts_images);
 
         // Create the ArrayList of Posts objects with titles and
         // information about each post.
         for(int i=0;i<postsList.length;i++){
-            mPostsData.add(new Post(postsList[i],postsInfo[i],
-                    postsImageResources.getResourceId(i,0)));
+            mPostsData.add(new Post(postsList[i]));
         }
 
-        // Clean up the data in the typed array once you have created the Post data ArrayList:
-        postsImageResources.recycle();
+        // No longer needed:                Clean up the data in the typed array once you have created the Post data ArrayList:
+
 
         // Notify the adapter of the change.
         mAdapter.notifyDataSetChanged();
