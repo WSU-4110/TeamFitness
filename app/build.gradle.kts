@@ -66,10 +66,19 @@ dependencies {
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)
+    implementation(libs.appcompat);
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.test.ext.junit)
+
+    // Android Instrumented Testing
+    androidTestImplementation(libs.junit.v121)
+    androidTestImplementation(libs.espresso.core.v361)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.mockito.core)
 
     // Import the BoM for the Firebase platform
     implementation(platform(libs.firebase.bom))

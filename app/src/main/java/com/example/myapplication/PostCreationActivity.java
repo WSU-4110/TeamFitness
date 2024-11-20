@@ -107,8 +107,8 @@ public class PostCreationActivity extends AppCompatActivity {
                 workoutData.put("Weight", inputWeight.getText().toString());
             }
 
-            String tableId = db.child("users").child(userId).child("tables").push().getKey();
-            db.child("users").child(userId).child("tables").child(tableId)
+            String tableId = db.child("users").child(userId).child("WorkoutRoutines").child("routines").push().getKey();
+            db.child("users").child(userId).child("WorkoutRoutines").child("routines").child(tableId)
                     .setValue(workoutData)
                     .addOnSuccessListener(aVoid -> Log.d("RealTimeDB", "Workout added successfully!"))
                     .addOnFailureListener(e -> Log.w("RealTimeDB", "Error writing workout", e));

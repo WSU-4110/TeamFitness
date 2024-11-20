@@ -53,7 +53,46 @@ public class SignUpPage extends AppCompatActivity {
 
     private FirebaseAuth fAuth;
 
+    public boolean firstNameCheck(String firstName){
+        if(null == firstName){
+            return false;
+        }
+        else{
+            String firstNameRegex = "^[A-Za-z]+(?: [A-Za-z-]+)*$";
+            Pattern pattern = Pattern.compile(firstNameRegex);
+            Matcher matcher = pattern.matcher(firstName);
+            return matcher.matches();
+        }
+    }
+
+    public boolean lastNameCheck(String lastName){
+        if(null == lastName){
+            return false;
+        }
+        else{
+            String lastNameRegex = "^[A-Za-z]+(?: [A-Za-z-]+)*$";
+            Pattern pattern = Pattern.compile(lastNameRegex);
+            Matcher matcher = pattern.matcher(lastName);
+            return matcher.matches();
+        }
+    }
+
+    public boolean phoneNumberCheck(String phoneNumber){
+        if(null == phoneNumber || phoneNumber.isEmpty()){
+            return false;
+        }
+        else{
+            String phoneRegex = "^(\\+?[0-9]{1,3})?[-.\\s]?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
+            Pattern pattern = Pattern.compile(phoneRegex);
+            Matcher matcher = pattern.matcher(phoneNumber);
+            return matcher.matches();
+        }
+    }
+
     public boolean emailCheck(String email) {
+        if(null == email){
+            return false;
+        }
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
@@ -61,6 +100,9 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     public boolean passwordCheck(String password) {
+        if(null == password){
+            return false;
+        }
         String passwordRegex = "^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?\":{}|<>])(?=.*[0-9]).{8,}$";
         Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);
@@ -71,30 +113,34 @@ public class SignUpPage extends AppCompatActivity {
         if (Objects.equals(password1, password2)) {
             return true;
         }
-        return false;
+        else{
+            return false;
+        }
     }
 
-    private void firebaseSignUp(String userEmail, String userPassword){
-
-        fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Registration in was successful
-                    Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignUpPage.this, EmailVerificationActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                        // Email already in the database
-                        Toast.makeText(SignUpPage.this, "Email already in use", Toast.LENGTH_SHORT).show();
+    public void firebaseSignUp(String userEmail, String userPassword){
+        fAuth = FirebaseAuth.getInstance();
+        if(userEmail != null && userPassword != null && fAuth != null) {
+            fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Registration in was successful
+                        Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpPage.this, EmailVerificationActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
-                        // Registration failed for some other reason
-                        Toast.makeText(SignUpPage.this, "Registration in failed!", Toast.LENGTH_SHORT).show();
+                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            // Email already in the database
+                            Toast.makeText(SignUpPage.this, "Email already in use", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Registration failed for some other reason
+                            Toast.makeText(SignUpPage.this, "Registration in failed!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
     };
 
