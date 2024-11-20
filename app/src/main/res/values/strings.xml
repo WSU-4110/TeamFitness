@@ -112,6 +112,24 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
     <string name="fab_desc_post">fab description post</string>
+    <string name="duration_1" />
+    <string name="workout_name_1" />
+    <string name="distance_1" />
+    <string name="weight_1" />
+    <string name="sets_1" />
+    <string name="reps_1" />
+    <string name="workout_name_2" />
+    <string name="duration_2" />
+    <string name="distance_2" />
+    <string name="weight_2" />
+    <string name="sets_2" />
+    <string name="reps_2" />
+    <string name="workout_name_3" />
+    <string name="duration_3" />
+    <string name="distance_3" />
+    <string name="weight_3" />
+    <string name="sets_3" />
+    <string name="reps_3" />
 
 
 </resources>

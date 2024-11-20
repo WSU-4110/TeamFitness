@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -14,6 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        // Test runner for instrumentation tests
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,7 +24,7 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -30,61 +32,61 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding = true
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true // Correct Kotlin DSL property
+        }
     }
 }
 
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    // **Core Libraries**
     implementation("androidx.appcompat:appcompat:1.6.0")
-    implementation(libs.appcompat)
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
-
-    //
-    implementation("com.github.lzyzsd:circleprogress:1.1.0") //for tracker donut progress circle
-    implementation(libs.appcompat)
-    implementation(libs.material)
-
-    // for Recycle & card view
     implementation(libs.cardview)
-    implementation(libs.com.github.bumptech.glide.glide2)
+    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation(libs.testng)
+    implementation(libs.espresso.core)
+    implementation(libs.espresso.intents)
+
+    // **Unit Testing** Dependencies
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:4.8.0")
+    testImplementation("junit:junit:4.13.2") // JUnit for unit tests
+    testImplementation("androidx.test:core:1.5.0") // AndroidX Test Core
+    testImplementation("org.robolectric:robolectric:4.10.3") // Robolectric for JVM-based Android testing
+    testImplementation("org.mockito:mockito-core:5.5.0") // Mockito for mocking dependencies
+
+    // **Instrumentation Testing** Dependencies
+    androidTestImplementation("androidx.test.ext:junit:1.1.5") // JUnit extensions for instrumentation
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1") // Espresso for UI tests
+
+    // **Firebase Libraries**
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
-    implementation(libs.preference)
-    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
-    annotationProcessor(libs.compiler)
-    implementation(libs.constraintlayout.v213)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
-    // Import the BoM for the Firebase platform
-    implementation(platform(libs.firebase.bom))
-
-    // Add the dependency for the Firebase Authentication library
-    implementation(libs.firebase.auth.ktx)
-
-    // Also add the dependency for the Google Play services library and specify its version
-    implementation(libs.play.services.auth)
-
     implementation(libs.firebase.analytics)
 
-    // Firebase Realtime Database
-    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
+    // **Circle Progress Library**
+    implementation("com.github.lzyzsd:circleprogress:1.1.0")
 
-    // Optional: Firebase Firestore
-    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
+    // **Glide**
+    implementation(libs.com.github.bumptech.glide.glide2)
+    annotationProcessor(libs.compiler)
 }

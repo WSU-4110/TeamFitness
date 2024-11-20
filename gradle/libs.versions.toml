@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.1"
+agp = "8.7.2"
 cardview = "1.0.0"
 circleprogress = "1.2.1"
 constraintlayoutVersion = "2.1.3"
@@ -24,6 +24,10 @@ firebaseAuth = "23.0.0"
 playServicesAuth = "21.2.0"
 preference = "1.2.1"
 recyclerview = "1.3.2"
+kotlin = "2.0.21"
+coreKtx = "1.15.0"
+testng = "6.9.6"
+espressoIntents = "3.6.1"
 
 [libraries]
 
@@ -54,7 +58,11 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+testng = { group = "org.testng", name = "testng", version.ref = "testng" }
+espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "espressoIntents" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

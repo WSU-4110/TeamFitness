@@ -17,7 +17,6 @@ public class Profile extends AppCompatActivity {
 
         settingsButton = findViewById(R.id.button);
         accessibilityButton = findViewById(R.id.button2);
-        personalInfoButton = findViewById(R.id.button3);
         notificationsButton = findViewById(R.id.button4);
         bioButton = findViewById(R.id.button5);
         returnHomeButton = findViewById(R.id.HomeButton);
@@ -38,13 +37,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        personalInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, PersonalInformation.class);
-                startActivity(intent);
-            }
-        });
 
         notificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
