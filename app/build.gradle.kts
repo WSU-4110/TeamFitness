@@ -63,11 +63,13 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.preference)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)
 
-    testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
@@ -87,4 +89,7 @@ dependencies {
 
     // Optional: Firebase Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
+
+
+    testImplementation ("org.junit.jupiter:junit-jupiter:5.10.0")
 }
