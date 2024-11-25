@@ -50,25 +50,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-      
+
         <activity
             android:name=".SignUpPage"
             android:exported="false" />
+
         <activity
+
             android:name=".EmailVerificationActivity"
             android:exported="false"/>
-        <activity      
+        <activity
+                  
             android:name=".Profile"
             android:exported="false" />
         <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
+
         <activity
             android:name=".AccountActivity"
             android:exported="false" />
