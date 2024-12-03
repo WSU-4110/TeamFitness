@@ -33,38 +33,14 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
-    testOptions {
-        unitTests.isIncludeAndroidResources = true
-    }
-}
-
-// Run all Unit and Instrumented Tests
-tasks.register<Test>("runSelectedTests") {
-    useJUnitPlatform()
-    testLogging {
-        events("started", "passed", "skipped", "failed", "standardOut", "standardError")
-        exceptionFormat = TestExceptionFormat.FULL
-        showStandardStreams = true
-    }
-    filter {
-        // Add specific tests from androidTest
-        includeTestsMatching("com.example.myapplication.progress.ProgressViewModelTest")
-        includeTestsMatching("com.example.myapplication.WorkoutAdapterTest")
-        includeTestsMatching("com.example.myapplication.WorkoutTest")
-    }
-}
-
-tasks.named("build") {
-    finalizedBy("runSelectedTests")
 }
 
 dependencies {
-    // Core Libraries
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation(libs.appcompat)
@@ -77,21 +53,39 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
 
-    // Firebase Dependencies
+    // Tracker donut progress circle
     implementation("com.github.lzyzsd:circleprogress:1.1.0")
+
+    // RecyclerView & CardView
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
+
+    // Firebase
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.preference)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.analytics)
+    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0") // Optional Firestore
+
+    // Annotation processor for Glide
     annotationProcessor(libs.compiler)
-    implementation(libs.constraintlayout.v213)
 
-    // Unit Tests (src/test/java)
-    testImplementation("junit:junit:4.13.2")
-
-    // Instrumented Tests (src/androidTest/java)
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }
+
+// Remove circular dependency by ensuring tests run as part of "check"
+tasks.named("check") {
+    dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+}
+
+// Ensure tests are executed
+tasks.withType<Test> {
+    ignoreFailures = false
+}
+
