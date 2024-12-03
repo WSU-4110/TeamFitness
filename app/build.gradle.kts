@@ -1,3 +1,6 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
@@ -30,12 +33,10 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        viewBinding = true
     }
 }
 
@@ -52,39 +53,40 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
 
-    //
-    implementation("com.github.lzyzsd:circleprogress:1.1.0") //for tracker donut progress circle
-    implementation(libs.appcompat)
-    implementation(libs.material)
+    // Tracker donut progress circle
+    implementation("com.github.lzyzsd:circleprogress:1.1.0")
 
-    // for Recycle & card view
+    // RecyclerView & CardView
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
+
+    // Firebase
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.preference)
-    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.analytics)
+    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0") // Optional Firestore
+
+    // Annotation processor for Glide
     annotationProcessor(libs.compiler)
-    implementation(libs.constraintlayout.v213)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    // Import the BoM for the Firebase platform
-    implementation(platform(libs.firebase.bom))
-
-    // Add the dependency for the Firebase Authentication library
-    implementation(libs.firebase.auth.ktx)
-
-    // Also add the dependency for the Google Play services library and specify its version
-    implementation(libs.play.services.auth)
-
-    implementation(libs.firebase.analytics)
-
-    // Firebase Realtime Database
-    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
-
-    // Optional: Firebase Firestore
-    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
 }
+
+// Remove circular dependency by ensuring tests run as part of "check"
+tasks.named("check") {
+    dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+}
+
+// Ensure tests are executed
+tasks.withType<Test> {
+    ignoreFailures = false
+}
+
+
