@@ -76,14 +76,16 @@ dependencies {
     // Annotation processor for Glide
     annotationProcessor(libs.compiler)
 
-    testImplementation("org.robolectric:robolectric:4.10.1")
-
     // AndroidX Testing dependencies for AndroidJUnit4 (instrumented tests)
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //Robolectric
+    testImplementation("org.robolectric:robolectric:4.10.3")
+    testImplementation("androidx.test:core:1.4.0")
 }
 
 // Remove circular dependency by ensuring tests run as part of "check"
