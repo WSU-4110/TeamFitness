@@ -37,24 +37,34 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding = true
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
     }
 }
 
-tasks.withType<Test> {
+// Run all Unit and Instrumented Tests
+tasks.register<Test>("runSelectedTests") {
+    useJUnitPlatform()
     testLogging {
         events("started", "passed", "skipped", "failed", "standardOut", "standardError")
         exceptionFormat = TestExceptionFormat.FULL
         showStandardStreams = true
     }
+    filter {
+        // Add specific tests from androidTest
+        includeTestsMatching("com.example.myapplication.progress.ProgressViewModelTest")
+        includeTestsMatching("com.example.myapplication.WorkoutAdapterTest")
+        includeTestsMatching("com.example.myapplication.WorkoutTest")
+    }
 }
 
 tasks.named("build") {
-    finalizedBy("testDebugUnitTest", "connectedDebugAndroidTest")
+    finalizedBy("runSelectedTests")
 }
 
 dependencies {
+    // Core Libraries
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation(libs.appcompat)
@@ -67,7 +77,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
 
-    // Circle progress library for tracker donut progress
+    // Firebase Dependencies
     implementation("com.github.lzyzsd:circleprogress:1.1.0")
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
@@ -77,15 +87,11 @@ dependencies {
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    // Unit Tests (src/test/java)
+    testImplementation("junit:junit:4.13.2")
 
-    // Firebase dependencies
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.play.services.auth)
-    implementation(libs.firebase.analytics)
-    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
+    // Instrumented Tests (src/androidTest/java)
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
 }
