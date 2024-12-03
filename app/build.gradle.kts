@@ -1,3 +1,6 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
@@ -39,6 +42,18 @@ android {
     }
 }
 
+tasks.withType<Test> {
+    testLogging {
+        events("started", "passed", "skipped", "failed", "standardOut", "standardError")
+        exceptionFormat = TestExceptionFormat.FULL
+        showStandardStreams = true
+    }
+}
+
+tasks.named("build") {
+    finalizedBy("testDebugUnitTest", "connectedDebugAndroidTest")
+}
+
 dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.appcompat:appcompat:1.6.0")
@@ -52,18 +67,13 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
 
-    //
-    implementation("com.github.lzyzsd:circleprogress:1.1.0") //for tracker donut progress circle
-    implementation(libs.appcompat)
-    implementation(libs.material)
-
-    // for Recycle & card view
+    // Circle progress library for tracker donut progress
+    implementation("com.github.lzyzsd:circleprogress:1.1.0")
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.preference)
-    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor(libs.compiler)
     implementation(libs.constraintlayout.v213)
 
@@ -71,20 +81,11 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    // Import the BoM for the Firebase platform
+    // Firebase dependencies
     implementation(platform(libs.firebase.bom))
-
-    // Add the dependency for the Firebase Authentication library
     implementation(libs.firebase.auth.ktx)
-
-    // Also add the dependency for the Google Play services library and specify its version
     implementation(libs.play.services.auth)
-
     implementation(libs.firebase.analytics)
-
-    // Firebase Realtime Database
     implementation("com.google.firebase:firebase-database-ktx:20.2.0")
-
-    // Optional: Firebase Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
 }
