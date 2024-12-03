@@ -69,11 +69,18 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.firebase.analytics)
     implementation("com.google.firebase:firebase-database-ktx:20.2.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0") // Optional Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
+    testImplementation(libs.ext.junit)
+    testImplementation(libs.ext.junit) // Optional Firestore
 
     // Annotation processor for Glide
     annotationProcessor(libs.compiler)
 
+    testImplementation("org.robolectric:robolectric:4.10.1")
+
+    // AndroidX Testing dependencies for AndroidJUnit4 (instrumented tests)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
