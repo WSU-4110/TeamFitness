@@ -6,6 +6,7 @@ plugins {
 android {
     namespace = "com.example.myapplication"
     compileSdk = 34
+    testNamespace = "com.example.myapplication.test"
 
     defaultConfig {
         applicationId = "com.example.myapplication"
@@ -30,61 +31,78 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        viewBinding = true
     }
 }
 
 dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.github.lzyzsd:circleprogress:1.1.0")
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.coordinatorlayout)
 
-    //
-    implementation("com.github.lzyzsd:circleprogress:1.1.0") //for tracker donut progress circle
-    implementation(libs.appcompat)
-    implementation(libs.material)
-
-    // for Recycle & card view
+    // RecyclerView and CardView
     implementation(libs.cardview)
     implementation(libs.com.github.bumptech.glide.glide2)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.auth)
-    implementation(libs.preference)
-    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
-    annotationProcessor(libs.compiler)
-    implementation(libs.constraintlayout.v213)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
-    // Import the BoM for the Firebase platform
+    // Firebase
     implementation(platform(libs.firebase.bom))
-
-    // Add the dependency for the Firebase Authentication library
     implementation(libs.firebase.auth.ktx)
-
-    // Also add the dependency for the Google Play services library and specify its version
-    implementation(libs.play.services.auth)
-
-    implementation(libs.firebase.analytics)
-
-    // Firebase Realtime Database
+    implementation(libs.firebase.database)
     implementation("com.google.firebase:firebase-database-ktx:20.2.0")
-
-    // Optional: Firebase Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.analytics)
+    testImplementation(libs.ext.junit)
+
+    // Annotation Processor
+    annotationProcessor(libs.compiler)
+
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:5.4.0")
+    testImplementation("org.robolectric:robolectric:4.10")
+    testImplementation("androidx.test:core:1.5.0")
+
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test:runner:1.5.0")
+    debugImplementation("androidx.fragment:fragment-testing:1.5.7")
+    implementation("androidx.preference:preference:1.2.1")
+
+    implementation("com.google.firebase:firebase-auth:21.0.8")
+    testImplementation("com.google.firebase:firebase-auth:21.0.8")
+    implementation ("com.google.android.material:material:1.9.0")
+
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    androidTestImplementation("androidx.test:core:1.3.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+
+    // Existing dependencies in your original file
+    implementation("androidx.annotation:annotation:1.5.0")
+    implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+}
+
+// Remove circular dependency by ensuring tests run as part of "check"
+tasks.named("check") {
+    dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+}
+
+// Ensure tests are executed
+tasks.withType<Test> {
+    ignoreFailures = false
 }
