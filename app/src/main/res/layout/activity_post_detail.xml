@@ -1,83 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/workout_routine_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.example.android.materialme.DetailActivity">
+        android:layout_marginTop="8dp" />
 
-        <ImageView
-            android:id="@+id/postsImageDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true" />
-
-        <TextView
-            android:id="@+id/titleDetail"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/postsImageDetail"
-            android:padding="16dp"
-            android:text="@string/title_placeholder"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-        <TextView
-            android:id="@+id/newsTitleDetail"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/postsImageDetail"
-            android:padding="16dp"
-            android:text="@string/user_placeholder"
-            android:textColor="?android:textColorSecondary" />
-
-        <TextView
-            android:id="@+id/subTitleDetail"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/newsTitleDetail"
-            android:padding="16dp"
-            android:text="@string/subtitle_detail_text" />
-
-        <!-- Comment Section -->
-        <TextView
-            android:id="@+id/commentsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/subTitleDetail"
-            android:padding="16dp"
-            android:text="Comments"
-            android:textSize="18sp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/commentsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/commentsLabel"
-            android:padding="16dp"/>
-
-        <EditText
-            android:id="@+id/commentInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/commentsRecyclerView"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:hint="Add a comment"
-            android:padding="16dp"/>
-
-        <Button
-            android:id="@+id/submitCommentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/commentInput"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
-            android:text="Submit"
-            android:padding="16dp"/>
-    </RelativeLayout>
-</ScrollView>
+</LinearLayout>

@@ -44,43 +44,38 @@
     at neque.</string>
 
     <string-array name="posts_titles">
-        <item>Post Title 1</item>
-        <item>Post Title 2</item>
-        <item>Post Title 3</item>
-        <item>Post Title 4</item>
-        <item>Post Title 5</item>
-        <item>Post Title 6</item>
-        <item>Post Title 7</item>
-        <item>Post Title 8</item>
-        <item>Post Title 9</item>
-        <item>Post Title 10</item>
+        <item>Workout Routine Title 1</item>
+        <item>Workout Routine Title 2</item>
+        <item>Workout Routine Title 3</item>
+        <item>Workout Routine Title 4</item>
+        <item>Workout Routine Title 5</item>
+        <item>Workout Routine Title 6</item>
+        <item>Workout Routine Title 7</item>
+        <item>Workout Routine Title 8</item>
     </string-array>
 
-    <string-array name="posts_info">
-        <item>Post Info 1</item>
-        <item>Post Info 2</item>
-        <item>Post Info 3</item>
-        <item>Post Info 4</item>
-        <item>Post Info 5</item>
-        <item>Post Info 6</item>
-        <item>Post Info 7</item>
-        <item>Post Info 8</item>
-        <item>Post Info 9</item>
-        <item>Post Info 10</item>
-    </string-array>
+<!--    <string-array name="posts_info">-->
+<!--        <item>Post Info 1</item>-->
+<!--        <item>Post Info 2</item>-->
+<!--        <item>Post Info 3</item>-->
+<!--        <item>Post Info 4</item>-->
+<!--        <item>Post Info 5</item>-->
+<!--        <item>Post Info 6</item>-->
+<!--        <item>Post Info 7</item>-->
+<!--    </string-array>-->
 
-    <array name="posts_images">
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-        <item>@drawable/img_running</item>
-    </array>
+<!--    <array name="posts_images">-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--        <item>@drawable/img_running</item>-->
+<!--    </array>-->
 
     <!--    Used for milestones  -->
     <array name="milestone_posts_images">
@@ -113,5 +108,29 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
     <string name="fab_desc_post">fab description post</string>
+
+
+
+    <!-- Workout Routine Place holder Data -->
+    <string name="workout_name_1">Morning Run</string>
+    <string name="duration_1">30 mins</string>
+    <string name="distance_1">6 km</string>
+    <string name="weight_1">N/A</string>
+    <string name="sets_1">N/A</string>
+    <string name="reps_1">N/A</string>
+
+    <string name="workout_name_2">Incline Bench Press</string>
+    <string name="duration_2">N/A</string>
+    <string name="distance_2">N/A</string>
+    <string name="weight_2">50 kg</string>
+    <string name="sets_2">3 sets</string>
+    <string name="reps_2">10 reps</string>
+
+    <string name="workout_name_3">Squats</string>
+    <string name="duration_3">N/A</string>
+    <string name="distance_3">N/A</string>
+    <string name="weight_3">60 kg</string>
+    <string name="sets_3">5 sets</string>
+    <string name="reps_3">15 reps</string>
 
 </resources>
