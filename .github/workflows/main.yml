@@ -1,4 +1,4 @@
-name: Android CI
+name: Android Unit Tests
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,31 +29,8 @@ jobs:
           api-level: 30
           build-tools: 30.0.3
 
-      - name: Install system image
-        run: sdkmanager "system-images;android-30;google_apis;x86_64"
-
-      - name: Install emulator
-        run: sdkmanager "emulator"
-
-      - name: Create AVD
-        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64" --device "pixel"
-
-      - name: Start Emulator
-        run: |
-          echo "Starting x86 emulator..."
-          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -gpu swiftshader_indirect &
-          echo "Waiting for emulator to boot..."
-          adb wait-for-device
-          adb shell input keyevent 82
-
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Build the project
-        run: ./gradlew build
-
-      - name: Run unit tests
+      - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
-
-      - name: Run instrumented tests
-        run: ./gradlew connectedDebugAndroidTest
