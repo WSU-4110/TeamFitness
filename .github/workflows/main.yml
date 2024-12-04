@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -26,17 +27,22 @@ jobs:
         uses: android-actions/setup-android@v2
         with:
           api-level: 30
-          target: default
-          arch: x86_64
-          profile: default
-          emulator: true
-          ndk: false
+          build-tools: 30.0.3
 
-      - name: Start emulator
+      - name: Install system image
+        run: sdkmanager "system-images;android-30;google_apis;x86_64"
+
+      - name: Install emulator
+        run: sdkmanager "emulator"
+
+      - name: Create AVD
+        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64" --device "pixel"
+
+      - name: Start Emulator
         run: |
-          adb devices
-          echo "Starting emulator..."
-          nohup emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim &
+          echo "Starting x86 emulator..."
+          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -gpu swiftshader_indirect &
+          echo "Waiting for emulator to boot..."
           adb wait-for-device
           adb shell input keyevent 82
 
@@ -44,12 +50,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build the project
-        run: ./gradlew clean build
+        run: ./gradlew build
 
       - name: Run unit tests
-        if: success()
         run: ./gradlew testDebugUnitTest
 
       - name: Run instrumented tests
-        if: success()
         run: ./gradlew connectedDebugAndroidTest
