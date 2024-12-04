@@ -34,14 +34,22 @@ jobs:
       - name: Install system image
         run: sdkmanager "system-images;android-30;google_apis;x86_64"
 
+      - name: Install emulator
+        run: sdkmanager "emulator"
+
+      - name: Add emulator to PATH
+        run: echo "${ANDROID_SDK_ROOT}/emulator" >> $GITHUB_PATH
+
+      - name: Check emulator binary
+        run: which emulator
+
       - name: Create AVD
         run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64" --device "pixel"
 
       - name: Start emulator
         run: |
-          adb devices
           echo "Starting emulator..."
-          nohup emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim &
+          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim &
           adb wait-for-device
           adb shell input keyevent 82
 
