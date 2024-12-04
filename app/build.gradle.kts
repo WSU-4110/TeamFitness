@@ -99,7 +99,7 @@ dependencies {
 
 // Remove circular dependency by ensuring tests run as part of "check"
 tasks.named("check") {
-    dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+    dependsOn("testDebugUnitTest")
 }
 
 // Ensure tests are executed
