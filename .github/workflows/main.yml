@@ -27,12 +27,12 @@ jobs:
         uses: android-actions/setup-android@v2
         with:
           api-level: 30
-          target: google_apis/x86_64
-          arch: x86_64
+          target: google_apis/arm64-v8a
+          arch: arm64-v8a
           emulator: true
 
-      - name: Install system image
-        run: sdkmanager "system-images;android-30;google_apis;x86_64"
+      - name: Install ARM system image
+        run: sdkmanager "system-images;android-30;google_apis;arm64-v8a"
 
       - name: Install emulator
         run: sdkmanager "emulator"
@@ -43,13 +43,13 @@ jobs:
       - name: Verify emulator installation
         run: which emulator
 
-      - name: Create AVD
-        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64" --device "pixel"
+      - name: Create AVD with ARM
+        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;arm64-v8a" --device "pixel"
 
-      - name: Start emulator
+      - name: Start emulator with ARM
         run: |
-          echo "Starting emulator with software rendering..."
-          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -memory 1024 &
+          echo "Starting ARM emulator..."
+          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect &
           echo "Waiting for emulator to boot..."
           adb wait-for-device
           adb shell input keyevent 82
