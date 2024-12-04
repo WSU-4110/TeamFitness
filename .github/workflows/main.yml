@@ -26,5 +26,31 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
         with:
-          api-level: 30
-          target: de
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: default
+          emulator: true
+          ndk: false
+
+      - name: Start emulator
+        run: |
+          echo "Available devices:"
+          adb devices
+          echo "Starting emulator..."
+          nohup emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim &
+          adb wait-for-device
+          echo "Boot completed"
+          adb shell input keyevent 82
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build the project
+        run: ./gradlew clean build
+
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest
+
+      - name: Run instrumented tests
+        run: ./gradlew connectedDebugAndroidTest
