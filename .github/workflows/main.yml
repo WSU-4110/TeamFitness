@@ -26,7 +26,7 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
         with:
-          api-level: 34
+          api-level: 30
           target: google_apis/x86_64
           arch: x86_64
           emulator: true
@@ -40,7 +40,7 @@ jobs:
       - name: Add emulator to PATH
         run: echo "${ANDROID_SDK_ROOT}/emulator" >> $GITHUB_PATH
 
-      - name: Check emulator binary
+      - name: Verify emulator installation
         run: which emulator
 
       - name: Create AVD
@@ -48,8 +48,9 @@ jobs:
 
       - name: Start emulator
         run: |
-          echo "Starting emulator..."
-          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim &
+          echo "Starting emulator with software rendering..."
+          nohup ${ANDROID_SDK_ROOT}/emulator/emulator -avd test -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -memory 1024 &
+          echo "Waiting for emulator to boot..."
           adb wait-for-device
           adb shell input keyevent 82
 
