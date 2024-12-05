@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -50,8 +52,10 @@ public class SignUpPage extends AppCompatActivity {
     EditText email;
     EditText password;
     EditText confirmPassword;
+    EditText username;
 
     private FirebaseAuth fAuth;
+    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
     public boolean firstNameCheck(String firstName){
         if(null == firstName){
@@ -118,12 +122,25 @@ public class SignUpPage extends AppCompatActivity {
         }
     }
 
-    private void firebaseSignUp(String userEmail, String userPassword){
+    private void firebaseSignUp(String userEmail, String userPassword, String strUserName){
 
         fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Registration in was successful
+
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String tableId = db.child("users").getKey();
+
+                    Map<String, Object> tableData = new HashMap<>();
+
+                    tableData.put("Username",strUserName);
+
+                    db.child("users").child(userId).child("userName").child(tableId)
+                            .setValue(tableData)
+                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully written!"))
+                            .addOnFailureListener(e -> Log.w("Firestore", "Error writing document", e));
+
                     Toast.makeText(SignUpPage.this, "Registration in successful!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignUpPage.this, EmailVerificationActivity.class);
                     startActivity(intent);
@@ -161,9 +178,11 @@ public class SignUpPage extends AppCompatActivity {
             }
         });
 
+        username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirmPassword);
+
 
         fAuth = FirebaseAuth.getInstance();
 
@@ -172,6 +191,7 @@ public class SignUpPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Getting the user inputs
+                String strUserName = username.getText().toString();
                 String userEmail = email.getText().toString();
                 String userPassword = password.getText().toString();
                 String userConfirmPassword = confirmPassword.getText().toString();
@@ -181,7 +201,7 @@ public class SignUpPage extends AppCompatActivity {
                         && passwordSame(userPassword, userConfirmPassword))
                 {
 
-                    firebaseSignUp(userEmail, userPassword);
+                    firebaseSignUp(userEmail, userPassword, strUserName);
 
                 }
                 // If the user enters an incorrect field it will let them know

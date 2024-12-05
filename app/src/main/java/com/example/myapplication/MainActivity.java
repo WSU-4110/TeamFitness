@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     Button loginButton;
-    Button verifyLogin;
     Button signUp;
     FirebaseAuth fAuth;
 
@@ -212,8 +211,6 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signUpButton);
 
-        verifyLogin = findViewById(R.id.verifyButton);
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,15 +248,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 // If the user clicks on the sign up button it redirects them to the registration page
                 Intent intent = new Intent(MainActivity.this, SignUpPage.class );
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        verifyLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EmailVerificationActivity.class);
                 startActivity(intent);
                 finish();
             }
