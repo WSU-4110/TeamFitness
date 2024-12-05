@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                             // Password is incorrect
                             Toast.makeText(MainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                         }
-                          else {
+                        else {
                             // Other Issues
                             Toast.makeText(MainActivity.this, "Sign in failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                         }
