@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="accessibilityTitle" type="id" />
+    <item name="fontSizeLabel" type="id" />
+    <item name="fontSizeSeekBar" type="id" />
+    <item name="themeLabel" type="id" />
+    <item name="themeRadioGroup" type="id" />
+    <item name="lightModeRadio" type="id" />
+    <item name="darkModeRadio" type="id" />
+    <item name="highContrastLabel" type="id" />
+    <item name="highContrastSwitch" type="id" />
+    <item name="saveAccessibilityButton" type="id" />
+</resources>

@@ -1,4 +1,3 @@
-// Updated HomeActivity.java
 package com.example.myapplication;
 
 import android.content.Intent;
@@ -45,9 +44,11 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Set up Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Initialize Views
         fab = findViewById(R.id.fab);
         fab_workoutroutine = findViewById(R.id.fab_workoutroutine);
         fab_post = findViewById(R.id.fab_post);
@@ -58,12 +59,15 @@ public class HomeActivity extends AppCompatActivity {
         progressWeight = findViewById(R.id.progress_weight);
         textStats = findViewById(R.id.textStats);
 
+        // Firebase Initialization
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
 
+        // Initialize FAB visibility
         fab_workoutroutine.setVisibility(View.GONE);
         fab_post.setVisibility(View.GONE);
 
+        // FAB Click Listeners
         fab.setOnClickListener(view -> toggleFABMenu());
 
         fab_workoutroutine.setOnClickListener(view -> {
@@ -78,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
             hideFABMenu();
         });
 
+        // Bottom Navigation View Setup
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_tracker, R.id.navigation_dashboard, R.id.navigation_progress)
@@ -90,6 +95,7 @@ public class HomeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        // Fetch and Update User Data
         fetchUserData();
     }
 
@@ -172,6 +178,21 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
+    private boolean hasCongratulated = false; // Prevent multiple triggers
+
+    private void checkProgressAndNotify() {
+        int totalProgress = circularProgress.getProgress(); // Assuming circularProgress is the tracker
+
+        if (totalProgress >= 70 && !hasCongratulated) {
+            hasCongratulated = true; // Ensure the message is sent only once
+            Intent intent = new Intent(HomeActivity.this, NotificationsActivity.class);
+            intent.putExtra("congratsMessage",
+                    "Congrats, You're making rapid progress! You've Passed 70% of the goal you set. Keep going, you got this!");
+            startActivity(intent);
+        }
+    }
+
+    // Call this method after updating the progress
     private void updateUI(int distance, int duration, int reps, int sets) {
         int totalProgress = (distance + duration + reps + sets) / 4;
         circularProgress.setProgress(totalProgress);
@@ -181,5 +202,9 @@ public class HomeActivity extends AppCompatActivity {
         progressWeight.setProgress(reps + sets);
 
         textStats.setText("Today's Workout Summary");
+
+        checkProgressAndNotify(); // Check progress after updating UI
     }
+
 }
+

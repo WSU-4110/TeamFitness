@@ -70,19 +70,16 @@
             android:exported="false" />
 
         <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
+            android:name=".NotificationsActivity"
+            />
 
         <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
+            android:name=".BioActivity"
+            />
 
         <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
+            android:name=".AccessibilityActivity"
+            />
 
         <activity
             android:name=".AccountActivity"

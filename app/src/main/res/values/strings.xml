@@ -54,28 +54,28 @@
         <item>Workout Routine Title 8</item>
     </string-array>
 
-<!--    <string-array name="posts_info">-->
-<!--        <item>Post Info 1</item>-->
-<!--        <item>Post Info 2</item>-->
-<!--        <item>Post Info 3</item>-->
-<!--        <item>Post Info 4</item>-->
-<!--        <item>Post Info 5</item>-->
-<!--        <item>Post Info 6</item>-->
-<!--        <item>Post Info 7</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="posts_info">-->
+    <!--        <item>Post Info 1</item>-->
+    <!--        <item>Post Info 2</item>-->
+    <!--        <item>Post Info 3</item>-->
+    <!--        <item>Post Info 4</item>-->
+    <!--        <item>Post Info 5</item>-->
+    <!--        <item>Post Info 6</item>-->
+    <!--        <item>Post Info 7</item>-->
+    <!--    </string-array>-->
 
-<!--    <array name="posts_images">-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--    </array>-->
+    <!--    <array name="posts_images">-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--    </array>-->
 
     <!--    Used for milestones  -->
     <array name="milestone_posts_images">
@@ -132,5 +132,16 @@
     <string name="weight_3">60 kg</string>
     <string name="sets_3">5 sets</string>
     <string name="reps_3">15 reps</string>
+    <string name="high_contrast">High Contrast</string>
+    <string name="accessibility_settings">Accessibility Settings</string>
+    <string name="dark">Dark</string>
+    <string name="yrinfo">Tell us about yourself</string>
+    <string name="my_bio">My Bio</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="camera_icon">Camera Icon</string>
+    <string name="tap_to_change_profile_picture">Tap to change profile picture</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="tell_us_about_yourself">Tell us about yourself</string>
+    <string name="save">Save</string>
 
 </resources>
