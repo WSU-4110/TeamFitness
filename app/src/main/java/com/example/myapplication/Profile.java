@@ -36,9 +36,8 @@ public class Profile extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference();
 
         // Initialize UI components
-        settingsButton = findViewById(R.id.button);
         accessibilityButton = findViewById(R.id.button2);
-        notificationsButton = findViewById(R.id.button3);
+//ginpre
         bioButton = findViewById(R.id.button4);
         returnHomeButton = findViewById(R.id.HomeButton);
         logOutButton = findViewById(R.id.logOut);
@@ -49,20 +48,20 @@ public class Profile extends AppCompatActivity {
         loadUserDetails();
 
         // Set up button click listeners for navigation
-        settingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Profile.this, SettingsActivity.class);
-            startActivity(intent);
-        });
+//        settingsButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(Profile.this, SettingsActivity.class);
+//            startActivity(intent);
+//        });
 
         accessibilityButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, AccessibilityActivity.class);
             startActivity(intent);
         });
 
-        notificationsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Profile.this, NotificationsActivity.class);
-            startActivity(intent);
-        });
+//        notificationsButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(Profile.this, NotificationsActivity.class);
+//            startActivity(intent);
+//        });
 
         bioButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, BioActivity.class);
