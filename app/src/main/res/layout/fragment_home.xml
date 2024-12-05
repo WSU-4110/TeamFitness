@@ -121,14 +121,24 @@
                 android:layout_height="100dp"
                 android:background="#D3D3D3">
 
-
-
                 <ImageView
                     android:id="@+id/achievementStepsImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/achievement_steps" />
+
+                <TextView
+                    android:id="@+id/achievementStepsCenterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:padding="4dp" />
+
             </FrameLayout>
 
             <TextView
@@ -138,7 +148,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Steps"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -161,6 +171,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/achievement_weights" />
+
+                <TextView
+                    android:id="@+id/achievementWeightsCenterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:padding="4dp" />
+
             </FrameLayout>
 
             <TextView
@@ -170,7 +192,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Weights"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -193,6 +215,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/achievement_calories" />
+
+                <TextView
+                    android:id="@+id/achievementCaloriesCenterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:padding="4dp" />
+
             </FrameLayout>
 
             <TextView
@@ -202,7 +236,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Calories"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>

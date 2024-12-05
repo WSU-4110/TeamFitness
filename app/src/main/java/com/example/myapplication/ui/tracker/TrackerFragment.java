@@ -253,14 +253,24 @@ public class TrackerFragment extends Fragment {
         ImageView weightsImage = getView().findViewById(R.id.achievementWeightsImage);
         ImageView caloriesImage = getView().findViewById(R.id.achievementCaloriesImage);
 
+        TextView stepsCenterText = getView().findViewById(R.id.achievementStepsCenterText);
+        TextView weightsCenterText = getView().findViewById(R.id.achievementWeightsCenterText);
+        TextView caloriesCenterText = getView().findViewById(R.id.achievementCaloriesCenterText);
+
         if (stepsImage != null) {
-            stepsImage.setImageResource(selectTrophyImage(steps));
+            int trophyRes = selectTrophyImage(steps);
+            stepsImage.setImageResource(trophyRes);
+            stepsCenterText.setText(selectTrophyCenterText(trophyRes));
         }
         if (weightsImage != null) {
-            weightsImage.setImageResource(selectTrophyImage(weights));
+            int trophyRes = selectTrophyImage(weights);
+            weightsImage.setImageResource(trophyRes);
+            weightsCenterText.setText(selectTrophyCenterText(trophyRes));
         }
         if (caloriesImage != null) {
-            caloriesImage.setImageResource(selectTrophyImage(calories));
+            int trophyRes = selectTrophyImage(calories);
+            caloriesImage.setImageResource(trophyRes);
+            caloriesCenterText.setText(selectTrophyCenterText(trophyRes));
         }
     }
 
@@ -269,5 +279,11 @@ public class TrackerFragment extends Fragment {
         else if (value >= 5000) return R.drawable.trophy2;
         else if (value >= 1000) return R.drawable.trophy1;
         else return R.drawable.trophy0;
+    }
+    private String selectTrophyCenterText(int trophyRes) {
+        if (trophyRes == R.drawable.trophy3) return "Gold\n10000";
+        else if (trophyRes == R.drawable.trophy2) return "Silver\n5000";
+        else if (trophyRes == R.drawable.trophy1) return "Bronze\n1000";
+        else return "???"; // No text
     }
 }
