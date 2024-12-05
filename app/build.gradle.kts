@@ -84,8 +84,7 @@ dependencies {
     implementation(libs.firebase.analytics)
 
     // Firebase Realtime Database
-    implementation("com.google.firebase:firebase-database-ktx:20.2.0")
-
-    // Optional: Firebase Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
+
+
 }

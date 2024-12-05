@@ -143,4 +143,8 @@
     <string name="tell_us_about_yourself">Tell us about yourself</string>
     <string name="save">Save</string>
 
+    <string name="achievement_steps" />
+    <string name="achievement_weights" />
+    <string name="achievement_calories" />
+
 </resources>
