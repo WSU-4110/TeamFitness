@@ -76,7 +76,6 @@ public class Profile extends AppCompatActivity {
     private void loadAndDisplayName() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String name = prefs.getString(NAME_KEY, "Default Name"); // Default to "Default Name"
-        nameTextView.setText(name);
     }
 
     // Handle the result from BioActivity

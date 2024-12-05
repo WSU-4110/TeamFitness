@@ -1,4 +1,4 @@
-<!-- ABOUT THE PROJECT -->
++<!-- ABOUT THE PROJECT -->
 ## About The Project
 **Total Fitness** is a social media app to track your gym progress, share with friends, and compete to reach milestones
 
