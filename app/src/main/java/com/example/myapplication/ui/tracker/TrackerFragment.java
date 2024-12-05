@@ -27,12 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class TrackerFragment extends Fragment {
 
-    ProgressBar progressSteps;
-    ProgressBar progressCalories;
-    ProgressBar progressWeight;
-    DonutProgress circularProgress;
-    FirebaseAuth auth;
-    DatabaseReference database;
+    private ProgressBar progressSteps, progressCalories, progressWeight;
+    private DonutProgress circularProgress;
+    private FirebaseAuth auth;
+    private DatabaseReference database;
 
     @Nullable
     @Override
@@ -60,7 +58,7 @@ public class TrackerFragment extends Fragment {
         return view;
     }
 
-    void fetchMaxValues() {
+    private void fetchMaxValues() {
         String userId = auth.getCurrentUser().getUid();
         database.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,7 +86,7 @@ public class TrackerFragment extends Fragment {
         });
     }
 
-    void showDialog(String type, ProgressBar progressBar) {
+    private void showDialog(String type, ProgressBar progressBar) {
         // Inflate the dialog layout
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_update_max, null);
@@ -136,7 +134,7 @@ public class TrackerFragment extends Fragment {
         });
     }
 
-    void updatePieChart() {
+    private void updatePieChart() {
         // Calculate the total progress and max values
         int totalProgress = progressSteps.getProgress() + progressCalories.getProgress() + progressWeight.getProgress();
         int totalMax = progressSteps.getMax() + progressCalories.getMax() + progressWeight.getMax();
@@ -151,6 +149,4 @@ public class TrackerFragment extends Fragment {
             circularProgress.setProgress(0);
         }
     }
-
-
 }

@@ -109,8 +109,6 @@
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
     <string name="fab_desc_post">fab description post</string>
 
-
-
     <!-- Workout Routine Place holder Data -->
     <string name="workout_name_1">Morning Run</string>
     <string name="duration_1">30 mins</string>
@@ -143,5 +141,6 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="tell_us_about_yourself">Tell us about yourself</string>
     <string name="save">Save</string>
+
 
 </resources>
