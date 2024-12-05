@@ -217,32 +217,34 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mock validation (replace with actual validation logic)
-                String userEmail = username.getText().toString();
-                String userPassword = password.getText().toString();
+                String userEmail = username.getText().toString().trim();
+                String userPassword = password.getText().toString().trim();
 
-
-                FirebaseAuth mAuth;
-                mAuth = FirebaseAuth.getInstance();
+                if (userEmail.isEmpty() || userPassword.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Email and password must not be empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 fAuth = FirebaseAuth.getInstance();
-                final FirebaseUser user = fAuth.getCurrentUser();
-                assert user != null;
-                user.reload().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (user.isEmailVerified()) {
-                            // User is verified
-                            firebaseSignUp(userEmail, userPassword);
-                        } else {
-                            // Email is still not verified
-                            Toast.makeText(MainActivity.this, "Email not verified yet.", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        // Handle error in reloading
-                        Toast.makeText(MainActivity.this, "Failed to reload user information.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                FirebaseUser user = fAuth.getCurrentUser();
 
+                if (user != null) {
+                    user.reload().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            if (user.isEmailVerified()) {
+                                // Proceed with login
+                                firebaseSignUp(userEmail, userPassword);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Email not verified.", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Failed to reload user information.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // User is not signed in
+                    firebaseSignUp(userEmail, userPassword);  // Try logging in directly with the email and password
+                }
             }
         });
         signUp.setOnClickListener(new View.OnClickListener(){

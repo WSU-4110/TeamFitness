@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Profile extends AppCompatActivity {
 
     Button settingsButton, accessibilityButton, personalInfoButton, notificationsButton, bioButton, returnHomeButton, logOutButton;
@@ -66,11 +68,17 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signOut();
+
         logOutButton.setOnClickListener(new View.OnClickListener() { // Added logout functionality
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear the back stack
                 startActivity(intent);
+                finish();
             }
         });
     }
