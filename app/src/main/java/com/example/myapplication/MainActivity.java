@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     EditText password;
     Button loginButton;
     Button signUp;
+    Button forgotPassword;
     FirebaseAuth fAuth;
 
 
@@ -210,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signUpButton);
+        forgotPassword = findViewById(R.id.forgotPassword);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +250,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 // If the user clicks on the sign up button it redirects them to the registration page
                 Intent intent = new Intent(MainActivity.this, SignUpPage.class );
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, ForgotPassword.class );
                 startActivity(intent);
                 finish();
             }
