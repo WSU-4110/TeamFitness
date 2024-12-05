@@ -133,4 +133,9 @@
     <string name="sets_3">5 sets</string>
     <string name="reps_3">15 reps</string>
 
+
+    <string name="achievement_steps" />
+    <string name="achievement_weights" />
+    <string name="achievement_calories" />
+
 </resources>

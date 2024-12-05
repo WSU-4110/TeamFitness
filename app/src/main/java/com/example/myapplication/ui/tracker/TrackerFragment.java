@@ -27,6 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import android.widget.ImageView;
+
+
 public class TrackerFragment extends Fragment {
 
     // UI Elements
@@ -39,24 +42,67 @@ public class TrackerFragment extends Fragment {
     private FirebaseAuth auth;
     private DatabaseReference database;
 
+
+    private int cachedSteps = -1;
+    private int cachedWeights = -1;
+    private int cachedCalories = -1;
+
+
     // Lifecycle Methods
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("TrackerFragment", "onCreateView called.");
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initializeFirebase();
         initializeUI(view);
         fetchMaxValues();
+        loadMaxValuesFromPreferences();
+        updatePieChart();
+
         setClickListeners();
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d("TrackerFragment", "onViewCreated called.");
+
+        if (savedInstanceState != null) {
+            cachedSteps = savedInstanceState.getInt("cachedSteps", -1);
+            cachedWeights = savedInstanceState.getInt("cachedWeights", -1);
+            cachedCalories = savedInstanceState.getInt("cachedCalories", -1);
+
+            if (cachedSteps != -1 && cachedWeights != -1 && cachedCalories != -1) {
+                updateAchievementImages(cachedSteps, cachedWeights, cachedCalories);
+            }
+        }
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
         loadMaxValuesFromPreferences();
         updatePieChart();
+
+        // Fetch data again or use cached values
+        if (cachedSteps != -1 && cachedWeights != -1 && cachedCalories != -1) {
+            updateAchievementImages(cachedSteps, cachedWeights, cachedCalories);
+        } else {
+            Log.e("TrackerFragment", "Cached data is missing. Cannot update images.");
+        }
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("cachedSteps", cachedSteps);
+        outState.putInt("cachedWeights", cachedWeights);
+        outState.putInt("cachedCalories", cachedCalories);
+    }
+
 
     // Initialization Methods
     private void initializeFirebase() {
@@ -193,5 +239,35 @@ public class TrackerFragment extends Fragment {
             circularProgress.setMax(100);
             circularProgress.setProgress(0);
         }
+    }
+
+    public void updateAchievementImages(int steps, int weights, int calories) {
+        Log.d("Achievements", "Steps: " + steps + ", Weights: " + weights + ", Calories: " + calories);
+
+        // Cache the data
+        cachedSteps = steps;
+        cachedWeights = weights;
+        cachedCalories = calories;
+
+        ImageView stepsImage = getView().findViewById(R.id.achievementStepsImage);
+        ImageView weightsImage = getView().findViewById(R.id.achievementWeightsImage);
+        ImageView caloriesImage = getView().findViewById(R.id.achievementCaloriesImage);
+
+        if (stepsImage != null) {
+            stepsImage.setImageResource(selectTrophyImage(steps));
+        }
+        if (weightsImage != null) {
+            weightsImage.setImageResource(selectTrophyImage(weights));
+        }
+        if (caloriesImage != null) {
+            caloriesImage.setImageResource(selectTrophyImage(calories));
+        }
+    }
+
+    private int selectTrophyImage(int value) {
+        if (value >= 10000) return R.drawable.trophy3;
+        else if (value >= 5000) return R.drawable.trophy2;
+        else if (value >= 1000) return R.drawable.trophy1;
+        else return R.drawable.trophy0;
     }
 }
