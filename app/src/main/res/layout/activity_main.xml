@@ -101,17 +101,6 @@
         android:textColor="@color/white"
         android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/verifyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:padding="8dp"
-        android:text="Email not Verified? Verify Now"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
-
 
 
 
