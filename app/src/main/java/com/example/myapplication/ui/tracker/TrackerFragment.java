@@ -42,7 +42,6 @@ public class TrackerFragment extends Fragment {
     private FirebaseAuth auth;
     private DatabaseReference database;
 
-
     private int cachedSteps = -1;
     private int cachedWeights = -1;
     private int cachedCalories = -1;
@@ -122,6 +121,7 @@ public class TrackerFragment extends Fragment {
         progressCalories.setOnClickListener(v -> showDialog("Calories", progressCalories));
         progressWeight.setOnClickListener(v -> showDialog("Weight", progressWeight));
     }
+
 
     // Data Fetching and UI Updates
     private void fetchMaxValues() {

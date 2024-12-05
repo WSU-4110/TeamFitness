@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +32,52 @@ public class WorkoutRoutineAdapter extends RecyclerView.Adapter<WorkoutRoutineAd
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         WorkoutRoutine routine = workoutRoutines.get(position);
-        holder.titleTextView.setText(routine.getWorkoutRoutineTitle());
+
+        // Create "Step X: " with underlined formatting and set font size to 20sp
+        String workoutTitlePrefix = "Step " + (position + 1) + ": ";
+        String fullTitle = workoutTitlePrefix + (routine.getWorkoutRoutineTitle() != null ? routine.getWorkoutRoutineTitle() : "");
+
+        SpannableString spannableString = new SpannableString(fullTitle);
+
+        // Underline the "Step X: "
+        spannableString.setSpan(new UnderlineSpan(), 0, workoutTitlePrefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set font size for "Step X: " to 20sp
+        spannableString.setSpan(new RelativeSizeSpan(1.4f), 0, workoutTitlePrefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // Adjust the multiplier accordingly to achieve 20sp equivalent size
+
+        // Alternatively, use TextAppearanceSpan if you have a style defined with 20sp
+        // TextAppearanceSpan textSizeSpan = new TextAppearanceSpan(context, R.style.TextAppearance_StepTitle);
+        // spannableString.setSpan(textSizeSpan, 0, workoutTitlePrefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        holder.titleTextView.setText(spannableString);
+
         holder.workoutNameTextView.setText(routine.getWorkoutName());
-        holder.repsTextView.setText(routine.getReps());
-        holder.setsTextView.setText(routine.getSets());
-        holder.weightTextView.setText(routine.getWeight());
-        holder.distanceTextView.setText(routine.getDistance());
-        holder.durationTextView.setText(routine.getDuration());
+
+        // Dynamically hide or show attributes if they are empty or null, with prefixed text and units where necessary
+        toggleVisibility(holder.repsTextView, "Reps: ", routine.getReps());
+        toggleVisibility(holder.setsTextView, "Sets: ", routine.getSets());
+        toggleVisibility(holder.weightTextView, "Weight: ", routine.getWeight(), " lbs");
+        toggleVisibility(holder.distanceTextView, "Distance: ", routine.getDistance(), " km");
+        toggleVisibility(holder.durationTextView, "Duration: ", routine.getDuration(), " min");
+    }
+
+    // Overloaded method to handle attributes with units
+    private void toggleVisibility(TextView textView, String prefix, String value) {
+        if (value == null || value.isEmpty()) {
+            textView.setVisibility(View.GONE);
+        } else {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(prefix + value);
+        }
+    }
+
+    private void toggleVisibility(TextView textView, String prefix, String value, String unit) {
+        if (value == null || value.isEmpty()) {
+            textView.setVisibility(View.GONE);
+        } else {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(prefix + value + unit);
+        }
     }
 
     @Override

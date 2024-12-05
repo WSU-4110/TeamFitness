@@ -116,7 +116,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button4"
+                        android:id="@+id/button3"
                         style="@android:style/Widget.Button"
                         android:layout_width="320dp"
                         android:layout_height="60dp"
@@ -135,7 +135,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button5"
+                        android:id="@+id/button4"
                         style="@android:style/Widget.Button"
                         android:layout_width="320dp"
                         android:layout_height="60dp"
