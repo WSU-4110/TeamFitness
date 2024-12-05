@@ -9,4 +9,22 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3963d5</color>
     <color name="orange">#F45E43</color>
+    <color name="primary_light">#6200EE</color>
+    <color name="primary_variant_light">#3700B3</color>
+    <color name="on_primary_light">#FFFFFF</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="primary_dark">#BB86FC</color>
+    <color name="primary_variant_dark">#3700B3</color>
+    <color name="on_primary_dark">#000000</color>
+
+    <!-- High Contrast Colors -->
+    <color name="hc_primary">#FF0000</color>
+    <color name="hc_primary_variant">#B30000</color>
+    <color name="hc_on_primary">#FFFF00</color>
+    <color name="hc_secondary">#FFD700</color>
+    <color name="hc_text">#FFFFFF</color> <!-- White for text -->
+    <color name="hc_surface">#303030</color> <!-- Dark gray for surfaces -->
+    <color name="hc_background">#303030</color> <!-- Dark gray for surfaces -->
+
 </resources>

@@ -1,34 +1,38 @@
 package com.example.myapplication.ui.dashboard;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.myapplication.R;
-import com.example.myapplication.databinding.FragmentDashboardBinding;
-
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.ui.Post;
+import com.example.myapplication.R;
+import com.example.myapplication.databinding.FragmentDashboardBinding;
 import com.example.myapplication.ui.PostsAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
     private RecyclerView mRecyclerView;
-    private ArrayList<Post> mPostsData;
+    private List<String> mRoutineTitles;
     private PostsAdapter mAdapter;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel =
@@ -37,9 +41,6 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         // Initialize the RecyclerView.
         mRecyclerView = root.findViewById(R.id.recyclerView);
 
@@ -47,60 +48,42 @@ public class DashboardFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize the ArrayList that will contain the data.
-        mPostsData = new ArrayList<>();
+        mRoutineTitles = new ArrayList<>();
 
         // Initialize the adapter and set it to the RecyclerView.
-        mAdapter = new PostsAdapter(getContext(), mPostsData);
+        mAdapter = new PostsAdapter(getContext(), mRoutineTitles);
         mRecyclerView.setAdapter(mAdapter);
 
-        // Get the data.
-        initializeData();
-
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
-                .SimpleCallback(0, ItemTouchHelper.LEFT |
-                ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                // remove the item from the database
-                mPostsData.remove(viewHolder.getAdapterPosition());
-                // notify the adapter about the removed item
-                mAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-            }
-        });
-
-        // attach the helper to the recycler view
-        helper.attachToRecyclerView(mRecyclerView);
+        // Fetch data from Firebase.
+        fetchWorkoutRoutines();
 
         return root;
     }
 
-    /**
-     * Initialize the posts data from resources.
-     */
-    private void initializeData() {
-        // Get the resources from the XML file.
-        String[] postsList = getResources()
-                .getStringArray(R.array.posts_titles);
+    private void fetchWorkoutRoutines() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(userId).child("routines");
 
-        // Clear the existing data (to avoid duplication).
-        mPostsData.clear();
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mRoutineTitles.clear();
+                for (DataSnapshot routineSnapshot : dataSnapshot.getChildren()) {
+                    String routineName = routineSnapshot.child("Routine Name").getValue(String.class);
+                    if (routineName != null) {
+                        mRoutineTitles.add(routineName);
+                    }
+                }
+                // Notify adapter that the data has changed.
+                mAdapter.notifyDataSetChanged();
+            }
 
-        // Create the ArrayList of Posts objects with titles and
-        // information about each post.
-        for(int i=0;i<postsList.length;i++){
-            mPostsData.add(new Post(postsList[i]));
-        }
-
-        // No longer needed:                Clean up the data in the typed array once you have created the Post data ArrayList:
-
-
-        // Notify the adapter of the change.
-        mAdapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("DashboardFragment", "loadWorkoutRoutines:onCancelled", databaseError.toException());
+            }
+        });
     }
 
     @Override

@@ -54,28 +54,28 @@
         <item>Workout Routine Title 8</item>
     </string-array>
 
-<!--    <string-array name="posts_info">-->
-<!--        <item>Post Info 1</item>-->
-<!--        <item>Post Info 2</item>-->
-<!--        <item>Post Info 3</item>-->
-<!--        <item>Post Info 4</item>-->
-<!--        <item>Post Info 5</item>-->
-<!--        <item>Post Info 6</item>-->
-<!--        <item>Post Info 7</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="posts_info">-->
+    <!--        <item>Post Info 1</item>-->
+    <!--        <item>Post Info 2</item>-->
+    <!--        <item>Post Info 3</item>-->
+    <!--        <item>Post Info 4</item>-->
+    <!--        <item>Post Info 5</item>-->
+    <!--        <item>Post Info 6</item>-->
+    <!--        <item>Post Info 7</item>-->
+    <!--    </string-array>-->
 
-<!--    <array name="posts_images">-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--        <item>@drawable/img_running</item>-->
-<!--    </array>-->
+    <!--    <array name="posts_images">-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--        <item>@drawable/img_running</item>-->
+    <!--    </array>-->
 
     <!--    Used for milestones  -->
     <array name="milestone_posts_images">
@@ -108,5 +108,44 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
     <string name="fab_desc_post">fab description post</string>
+
+    <!-- Workout Routine Place holder Data -->
+    <string name="workout_name_1">Morning Run</string>
+    <string name="duration_1">30 mins</string>
+    <string name="distance_1">6 km</string>
+    <string name="weight_1">N/A</string>
+    <string name="sets_1">N/A</string>
+    <string name="reps_1">N/A</string>
+
+    <string name="workout_name_2">Incline Bench Press</string>
+    <string name="duration_2">N/A</string>
+    <string name="distance_2">N/A</string>
+    <string name="weight_2">50 kg</string>
+    <string name="sets_2">3 sets</string>
+    <string name="reps_2">10 reps</string>
+
+    <string name="workout_name_3">Squats</string>
+    <string name="duration_3">N/A</string>
+    <string name="distance_3">N/A</string>
+    <string name="weight_3">60 kg</string>
+    <string name="sets_3">5 sets</string>
+    <string name="reps_3">15 reps</string>
+    <string name="high_contrast">High Contrast</string>
+    <string name="accessibility_settings">Accessibility Settings</string>
+    <string name="dark">Dark</string>
+    <string name="yrinfo">Tell us about yourself</string>
+    <string name="my_bio">My Bio</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="camera_icon">Camera Icon</string>
+    <string name="tap_to_change_profile_picture">Tap to change profile picture</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="tell_us_about_yourself">Tell us about yourself</string>
+    <string name="save">Save</string>
+
+
+
+    <string name="achievement_steps" />
+    <string name="achievement_weights" />
+    <string name="achievement_calories" />
 
 </resources>

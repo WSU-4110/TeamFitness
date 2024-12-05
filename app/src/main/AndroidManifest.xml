@@ -69,9 +69,27 @@
             android:exported="false"/>
 
         <activity
+            android:name=".NotificationsActivity"
+            />
+
+            android:name=".EmailVerificationActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".BioActivity"
+            />
+                  
+            android:name=".Profile"
+            android:exported="false"/>
+      
+        <activity
 
             android:name=".PostDetailActivity"
             android:exported="false" />
+
+
+        <activity
+            android:name=".AccessibilityActivity"
+            />
 
 
         <activity

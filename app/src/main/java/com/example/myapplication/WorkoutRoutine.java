@@ -1,5 +1,5 @@
 package com.example.myapplication;
-
+import android.util.Log;
 
 public class WorkoutRoutine {
     private String workoutRoutineTitle;
@@ -10,8 +10,20 @@ public class WorkoutRoutine {
     private String distance;
     private String duration;
 
+    // Parameterized constructor
+    public WorkoutRoutine(String workoutName, String duration, String distance, String weight, String sets, String reps) {
+        this.workoutName = workoutName;
+        this.duration = duration;
+        this.distance = distance;
+        this.weight = weight;
+        this.sets = sets;
+        this.reps = reps;
+    }
+
+    // Default constructor
     public WorkoutRoutine() {}
 
+    // Getters and Setters
     public String getWorkoutRoutineTitle() { return workoutRoutineTitle; }
     public void setWorkoutRoutineTitle(String workoutRoutineTitle) { this.workoutRoutineTitle = workoutRoutineTitle; }
 
@@ -32,5 +44,7 @@ public class WorkoutRoutine {
 
     public String getDuration() { return duration; }
     public void setDuration(String duration) { this.duration = duration; }
-}
 
+
+
+}

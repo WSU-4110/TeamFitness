@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
@@ -19,13 +18,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PostCreationActivity extends AppCompatActivity {
 
     private LinearLayout workoutContainer;
     private Button buttonAddWorkout, buttonSaveWorkout;
+    private EditText inputRoutineTitle;
 
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
@@ -38,6 +40,7 @@ public class PostCreationActivity extends AppCompatActivity {
         workoutContainer = findViewById(R.id.workout_container);
         buttonAddWorkout = findViewById(R.id.button_add_workout);
         buttonSaveWorkout = findViewById(R.id.button_save_workout);
+        inputRoutineTitle = findViewById(R.id.input_workout_routine_title); // Corrected ID
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,12 +85,23 @@ public class PostCreationActivity extends AppCompatActivity {
 
     private void saveWorkoutRoutine() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String routineName = inputRoutineTitle.getText().toString().trim(); // Corrected variable
+
+        if (routineName.isEmpty()) {
+            inputRoutineTitle.setError("Routine name is required");
+            inputRoutineTitle.requestFocus();
+            return;
+        }
+
+        List<Map<String, Object>> workouts = new ArrayList<>();
 
         for (int i = 0; i < workoutContainer.getChildCount(); i++) {
             View workoutForm = workoutContainer.getChildAt(i);
 
             EditText inputWorkoutName = workoutForm.findViewById(R.id.input_workout_name);
             String workoutName = inputWorkoutName.getText().toString();
+
+            if (workoutName.isEmpty()) continue;
 
             Map<String, Object> workoutData = new HashMap<>();
             workoutData.put("Workout Name", workoutName);
@@ -107,11 +121,24 @@ public class PostCreationActivity extends AppCompatActivity {
                 workoutData.put("Weight", inputWeight.getText().toString());
             }
 
-            String tableId = db.child("users").child(userId).child("tables").push().getKey();
-            db.child("users").child(userId).child("tables").child(tableId)
-                    .setValue(workoutData)
-                    .addOnSuccessListener(aVoid -> Log.d("RealTimeDB", "Workout added successfully!"))
-                    .addOnFailureListener(e -> Log.w("RealTimeDB", "Error writing workout", e));
+            workouts.add(workoutData);
+        }
+
+        if (workouts.isEmpty()) {
+            Log.w("PostCreationActivity", "No workouts to save");
+            return;
+        }
+
+        Map<String, Object> routineData = new HashMap<>();
+        routineData.put("Routine Name", routineName);
+        routineData.put("Workouts", workouts);
+
+        String routineId = db.child("users").child(userId).child("routines").push().getKey();
+        if (routineId != null) {
+            db.child("users").child(userId).child("routines").child(routineId)
+                    .setValue(routineData)
+                    .addOnSuccessListener(aVoid -> Log.d("RealTimeDB", "Routine added successfully!"))
+                    .addOnFailureListener(e -> Log.w("RealTimeDB", "Error writing routine", e));
         }
 
         Intent intent = new Intent(PostCreationActivity.this, HomeActivity.class);
