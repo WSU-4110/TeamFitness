@@ -5,22 +5,35 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
 
     private Button settingsButton, accessibilityButton, notificationsButton, bioButton, returnHomeButton, logOutButton;
-    private TextView nameTextView;
+    private TextView nameTextView, emailTextView;
 
-    private static final String PREFS_NAME = "BioPrefs";
-    private static final String NAME_KEY = "name";
-    private static final int REQUEST_BIO_ACTIVITY = 1;
+    private FirebaseAuth fAuth;
+    private DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        // Initialize Firebase
+        fAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
 
         // Initialize UI components
         settingsButton = findViewById(R.id.button);
@@ -28,74 +41,88 @@ public class Profile extends AppCompatActivity {
         notificationsButton = findViewById(R.id.button3);
         bioButton = findViewById(R.id.button4);
         returnHomeButton = findViewById(R.id.HomeButton);
-        logOutButton = findViewById(R.id.logOut); // Added logout button initialization
-        nameTextView = findViewById(R.id.textView); // Initialize the TextView for the name
+        logOutButton = findViewById(R.id.logOut);
+        nameTextView = findViewById(R.id.textView); // TextView for the name
+        emailTextView = findViewById(R.id.textView2); // TextView for the email
 
-        // Load and display the saved name
-        loadAndDisplayName();
+        // Load user details from Firebase
+        loadUserDetails();
 
-        // Navigate to Settings
+        // Set up button click listeners for navigation
         settingsButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, SettingsActivity.class);
             startActivity(intent);
         });
 
-        // Navigate to Accessibility
         accessibilityButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, AccessibilityActivity.class);
             startActivity(intent);
         });
 
-        // Navigate to Notifications
         notificationsButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, NotificationsActivity.class);
             startActivity(intent);
         });
 
-        // Navigate to BioActivity
         bioButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, BioActivity.class);
-            startActivityForResult(intent, REQUEST_BIO_ACTIVITY); // Start BioActivity and wait for a result
+            startActivityForResult(intent, 1); // Start BioActivity and wait for a result
         });
 
-        // Navigate back to HomeActivity
         returnHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Logout functionality
         logOutButton.setOnClickListener(v -> {
+            fAuth.signOut(); // Sign out the user
             Intent intent = new Intent(Profile.this, MainActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 
-    // Load the name from SharedPreferences and display it in the TextView
-    private void loadAndDisplayName() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String name = prefs.getString(NAME_KEY, "Default Name"); // Default to "Default Name"
-    }
+    // Load the user details from Firebase and display them in the TextViews
+    private void loadUserDetails() {
+        FirebaseUser currentUser = fAuth.getCurrentUser();
 
-    // Handle the result from BioActivity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference userRef = db.child("users").child(userId).child("userName");
 
-        if (requestCode == REQUEST_BIO_ACTIVITY && resultCode == RESULT_OK && data != null) {
-            // Get the updated name and display it
-            String updatedName = data.getStringExtra("updatedName");
-            if (updatedName != null) {
-                nameTextView.setText(updatedName);
-            }
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Extract username and email from the database
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String username = (String) snapshot.child("Username").getValue();
+                            if (username != null) {
+                                nameTextView.setText(username);
+                            }
+                        }
+                    }
+
+                    // Also get the user's email directly from FirebaseAuth
+                    String email = currentUser.getEmail();
+                    if (email != null) {
+                        emailTextView.setText(email);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Log or handle database error
+                }
+            });
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh the name when returning to this activity
-        loadAndDisplayName();
+        // Refresh the user details when returning to this activity
+        loadUserDetails();
     }
 }

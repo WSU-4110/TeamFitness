@@ -36,6 +36,7 @@
 
     <string name="fab_desc">floating button description</string>
 
+
     <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
     consectetur adipiscing elit. Praesent ultrices congue rutrum.
     Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
@@ -141,8 +142,6 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="tell_us_about_yourself">Tell us about yourself</string>
     <string name="save">Save</string>
-
-
 
     <string name="achievement_steps" />
     <string name="achievement_weights" />

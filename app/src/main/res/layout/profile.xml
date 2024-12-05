@@ -184,7 +184,8 @@
                         android:text="@string/return_home"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp" />
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
