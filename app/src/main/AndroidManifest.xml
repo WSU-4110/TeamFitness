@@ -65,8 +65,9 @@
             android:exported="false" />
 
         <activity
-            android:name=".EmailVerificationActivity"
+            android:name=".ForgotPassword"
             android:exported="false"/>
+
         <activity
             android:name=".NotificationsActivity"
             />
@@ -79,14 +80,17 @@
                   
             android:name=".Profile"
             android:exported="false"/>
+      
         <activity
 
             android:name=".PostDetailActivity"
             android:exported="false" />
 
+
         <activity
             android:name=".AccessibilityActivity"
             />
+
 
         <activity
             android:name=".AccountActivity"

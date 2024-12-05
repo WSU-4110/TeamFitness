@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Profile extends AppCompatActivity {
 
     private Button settingsButton, accessibilityButton, notificationsButton, bioButton, returnHomeButton, logOutButton;
@@ -83,11 +85,24 @@ public class Profile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signOut();
+
+        logOutButton.setOnClickListener(new View.OnClickListener() { // Added logout functionality
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear the back stack
+                startActivity(intent);
+                finish();
+
         if (requestCode == REQUEST_BIO_ACTIVITY && resultCode == RESULT_OK && data != null) {
             // Get the updated name and display it
             String updatedName = data.getStringExtra("updatedName");
             if (updatedName != null) {
                 nameTextView.setText(updatedName);
+
             }
         }
     }

@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     EditText password;
     Button loginButton;
     Button signUp;
+    Button forgotPassword;
     FirebaseAuth fAuth;
 
 
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                             // Password is incorrect
                             Toast.makeText(MainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                         }
-                          else {
+                        else {
                             // Other Issues
                             Toast.makeText(MainActivity.this, "Sign in failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -210,37 +211,40 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signUpButton);
+        forgotPassword = findViewById(R.id.forgotPassword);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mock validation (replace with actual validation logic)
-                String userEmail = username.getText().toString();
-                String userPassword = password.getText().toString();
+                String userEmail = username.getText().toString().trim();
+                String userPassword = password.getText().toString().trim();
 
-
-                FirebaseAuth mAuth;
-                mAuth = FirebaseAuth.getInstance();
+                if (userEmail.isEmpty() || userPassword.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Email and password must not be empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 fAuth = FirebaseAuth.getInstance();
-                final FirebaseUser user = fAuth.getCurrentUser();
-                assert user != null;
-                user.reload().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (user.isEmailVerified()) {
-                            // User is verified
-                            firebaseSignUp(userEmail, userPassword);
-                        } else {
-                            // Email is still not verified
-                            Toast.makeText(MainActivity.this, "Email not verified yet.", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        // Handle error in reloading
-                        Toast.makeText(MainActivity.this, "Failed to reload user information.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                FirebaseUser user = fAuth.getCurrentUser();
 
+                if (user != null) {
+                    user.reload().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            if (user.isEmailVerified()) {
+                                // Proceed with login
+                                firebaseSignUp(userEmail, userPassword);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Email not verified.", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Failed to reload user information.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // User is not signed in
+                    firebaseSignUp(userEmail, userPassword);  // Try logging in directly with the email and password
+                }
             }
         });
         signUp.setOnClickListener(new View.OnClickListener(){
@@ -248,6 +252,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 // If the user clicks on the sign up button it redirects them to the registration page
                 Intent intent = new Intent(MainActivity.this, SignUpPage.class );
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, ForgotPassword.class );
                 startActivity(intent);
                 finish();
             }
