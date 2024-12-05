@@ -1,4 +1,5 @@
 package com.example.myapplication;
+import android.util.Log;
 
 public class WorkoutRoutine {
     private String workoutRoutineTitle;
@@ -43,4 +44,7 @@ public class WorkoutRoutine {
 
     public String getDuration() { return duration; }
     public void setDuration(String duration) { this.duration = duration; }
+
+
+
 }

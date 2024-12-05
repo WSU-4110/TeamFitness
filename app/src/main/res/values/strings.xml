@@ -143,4 +143,9 @@
     <string name="save">Save</string>
 
 
+
+    <string name="achievement_steps" />
+    <string name="achievement_weights" />
+    <string name="achievement_calories" />
+
 </resources>

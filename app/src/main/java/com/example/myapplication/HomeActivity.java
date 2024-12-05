@@ -1,4 +1,8 @@
 package com.example.myapplication;
+import androidx.navigation.NavDestination;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.fragment.app.Fragment;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.myapplication.ui.tracker.TrackerFragment;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -57,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         progressSteps = findViewById(R.id.progress_steps);
         progressCalories = findViewById(R.id.progress_calories);
         progressWeight = findViewById(R.id.progress_weight);
-        textStats = findViewById(R.id.textStats);
+        textStats = findViewById(R.id.trackerLogo);
 
         // Firebase Initialization
         auth = FirebaseAuth.getInstance();
@@ -98,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
         // Fetch and Update User Data
         fetchUserData();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,6 +154,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (snapshot.exists()) {
                             int totalDistance = 0;
                             int totalDuration = 0;
+                            int totalWeights = 0;
                             int totalReps = 0;
                             int totalSets = 0;
 
@@ -157,6 +165,9 @@ public class HomeActivity extends AppCompatActivity {
                                 if (tableSnapshot.child("Duration").exists()) {
                                     totalDuration += Integer.parseInt(tableSnapshot.child("Duration").getValue(String.class));
                                 }
+                                if (tableSnapshot.child("Weight").exists()) {
+                                    totalWeights += Integer.parseInt(tableSnapshot.child("Weight").getValue(String.class));
+                                }
                                 if (tableSnapshot.child("Reps").exists()) {
                                     totalReps += Integer.parseInt(tableSnapshot.child("Reps").getValue(String.class));
                                 }
@@ -165,7 +176,16 @@ public class HomeActivity extends AppCompatActivity {
                                 }
                             }
 
-                            updateUI(totalDistance, totalDuration, totalReps, totalSets);
+                            int steps = totalDistance * 1312;
+                            int weights = totalReps * totalSets;
+                            double caloriesD = (steps * 0.1) + (totalWeights * 0.05 * weights);
+                            int calories = (int) Math.round(caloriesD);
+
+                            int totalProgress = (steps + weights + calories);
+
+                            Log.d("FirebaseData", "Steps: " + steps + ", Weights: " + weights + ", Calories: " + calories);
+
+                            updateUI(steps, weights, calories, totalProgress);
                         } else {
                             Log.e("Firebase", "No workout data found.");
                         }
@@ -193,16 +213,29 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     // Call this method after updating the progress
-    private void updateUI(int distance, int duration, int reps, int sets) {
-        int totalProgress = (distance + duration + reps + sets) / 4;
+    private void updateUI(int steps, int weights, int calories, int totalProgress) {
         circularProgress.setProgress(totalProgress);
 
-        progressSteps.setProgress(distance);
-        progressCalories.setProgress(duration);
-        progressWeight.setProgress(reps + sets);
+        progressSteps.setProgress(steps);
+        progressCalories.setProgress(calories);
+        progressWeight.setProgress(weights);
 
         textStats.setText("Today's Workout Summary");
 
+        // Ensure the NavHostFragment is properly retrieved
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment_activity_home);
+        if (navHostFragment != null) {
+            Fragment currentFragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+            if (currentFragment instanceof TrackerFragment) {
+                Log.d("TrackerFragment", "Updating achievements in TrackerFragment.");
+                ((TrackerFragment) currentFragment).updateAchievementImages(steps, weights, calories);
+            } else {
+                Log.e("TrackerFragment", "TrackerFragment not found or is not active.");
+            }
+        } else {
+            Log.e("NavHostFragment", "NavHostFragment not found!");
+        }
         checkProgressAndNotify(); // Check progress after updating UI
     }
 
