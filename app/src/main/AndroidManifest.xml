@@ -68,16 +68,14 @@
             android:name=".EmailVerificationActivity"
             android:exported="false"/>
         <activity
-            android:name=".Profile"
-            android:exported="false"/>
-        <activity
-            android:name=".EmailVerificationActivity"
-            android:exported="false"/>
-        <activity
+            android:name=".NotificationsActivity"
+            />
 
             android:name=".EmailVerificationActivity"
             android:exported="false"/>
         <activity
+            android:name=".BioActivity"
+            />
                   
             android:name=".Profile"
             android:exported="false"/>
@@ -87,8 +85,8 @@
             android:exported="false" />
 
         <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
+            android:name=".AccessibilityActivity"
+            />
 
         <activity
             android:name=".AccountActivity"
