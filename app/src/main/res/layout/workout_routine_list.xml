@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp" >
 
     <TextView
         android:id="@+id/routine_title"
@@ -16,14 +16,17 @@
         android:id="@+id/workout_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:paddingTop="4dp" />
+
 
     <TextView
         android:id="@+id/reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reps: "
+        android:textSize="16sp"
         android:paddingTop="4dp" />
 
     <TextView
@@ -31,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sets: "
+        android:textSize="16sp"
         android:paddingTop="4dp" />
 
     <TextView
@@ -38,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weight: "
+        android:textSize="16sp"
         android:paddingTop="4dp" />
 
     <TextView
@@ -45,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Distance: "
+        android:textSize="16sp"
         android:paddingTop="4dp" />
 
     <TextView
@@ -52,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Duration: "
+        android:textSize="16sp"
         android:paddingTop="4dp" />
 
 </LinearLayout>
