@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -65,29 +66,12 @@
             android:exported="false" />
 
         <activity
-            android:name=".EmailVerificationActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".NotificationsActivity"
-            />
-
-            android:name=".EmailVerificationActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".BioActivity"
-            />
-                  
-            android:name=".Profile"
-            android:exported="false"/>
-        <activity
-
             android:name=".PostDetailActivity"
             android:exported="false" />
 
         <activity
-            android:name=".AccessibilityActivity"
-            />
-
+            android:name=".PostDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
@@ -99,16 +83,7 @@
         <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
 
-        <activity
-            android:name=".PostDetailActivity"
-            android:exported="false" />
         <activity
             android:name=".AccountActivity"
             android:exported="false" />
