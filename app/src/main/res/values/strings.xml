@@ -109,28 +109,4 @@
     <string name="fab_desc_workoutroutine">FAB workout routine description</string>
     <string name="fab_desc_post">fab description post</string>
 
-
-
-    <!-- Workout Routine Place holder Data -->
-    <string name="workout_name_1">Morning Run</string>
-    <string name="duration_1">30 mins</string>
-    <string name="distance_1">6 km</string>
-    <string name="weight_1">N/A</string>
-    <string name="sets_1">N/A</string>
-    <string name="reps_1">N/A</string>
-
-    <string name="workout_name_2">Incline Bench Press</string>
-    <string name="duration_2">N/A</string>
-    <string name="distance_2">N/A</string>
-    <string name="weight_2">50 kg</string>
-    <string name="sets_2">3 sets</string>
-    <string name="reps_2">10 reps</string>
-
-    <string name="workout_name_3">Squats</string>
-    <string name="duration_3">N/A</string>
-    <string name="distance_3">N/A</string>
-    <string name="weight_3">60 kg</string>
-    <string name="sets_3">5 sets</string>
-    <string name="reps_3">15 reps</string>
-
 </resources>
