@@ -1,4 +1,5 @@
 package com.example.myapplication;
+import android.util.Log;
 
 public class WorkoutRoutine {
     private String workoutRoutineTitle;
@@ -43,4 +44,34 @@ public class WorkoutRoutine {
 
     public String getDuration() { return duration; }
     public void setDuration(String duration) { this.duration = duration; }
+
+
+
+    public int calculateSteps() {
+        try {
+            return (distance != null && !distance.isEmpty()) ? Integer.parseInt(distance) * 1312 : 0;
+        } catch (NumberFormatException e) {
+            Log.e("WorkoutRoutine", "Invalid distance value: " + distance, e);
+            return 0;
+        }
+    }
+
+    public int calculateWeights() {
+        try {
+            int repsInt = (reps != null && !reps.isEmpty()) ? Integer.parseInt(reps) : 0;
+            int setsInt = (sets != null && !sets.isEmpty()) ? Integer.parseInt(sets) : 0;
+            return repsInt * setsInt;
+        } catch (NumberFormatException e) {
+            Log.e("WorkoutRoutine", "Invalid reps/sets value: reps=" + reps + ", sets=" + sets, e);
+            return 0;
+        }
+    }
+
+    public int calculateCalories(int steps, int weights) {
+        return (int) ((steps * 0.05) + (weights * 1.5));
+    }
+
+
+
+
 }

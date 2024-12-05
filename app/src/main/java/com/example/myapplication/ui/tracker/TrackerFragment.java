@@ -1,7 +1,9 @@
-// fragment for piechart and barchart functionality
+// Organized TrackerFragment.java
 package com.example.myapplication.ui.tracker;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,57 +29,66 @@ import com.google.firebase.database.ValueEventListener;
 
 public class TrackerFragment extends Fragment {
 
-    ProgressBar progressSteps;
-    ProgressBar progressCalories;
-    ProgressBar progressWeight;
-    DonutProgress circularProgress;
-    FirebaseAuth auth;
-    DatabaseReference database;
+    // UI Elements
+    private ProgressBar progressSteps;
+    private ProgressBar progressCalories;
+    private ProgressBar progressWeight;
+    private DonutProgress circularProgress;
 
+    // Firebase Instances
+    private FirebaseAuth auth;
+    private DatabaseReference database;
+
+    // Lifecycle Methods
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        initializeFirebase();
+        initializeUI(view);
+        fetchMaxValues();
+        setClickListeners();
+        return view;
+    }
 
-        // Initialize Firebase
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadMaxValuesFromPreferences();
+        updatePieChart();
+    }
+
+    // Initialization Methods
+    private void initializeFirebase() {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
+    }
 
-        // Initialize progress bars and circular progress
+    private void initializeUI(View view) {
         progressSteps = view.findViewById(R.id.progress_steps);
         progressCalories = view.findViewById(R.id.progress_calories);
         progressWeight = view.findViewById(R.id.progress_weight);
         circularProgress = view.findViewById(R.id.circular_progress);
+    }
 
-        // Fetch initial max values and update UI
-        fetchMaxValues();
-
-        // Set click listeners for each progress bar
+    private void setClickListeners() {
         progressSteps.setOnClickListener(v -> showDialog("Steps", progressSteps));
         progressCalories.setOnClickListener(v -> showDialog("Calories", progressCalories));
         progressWeight.setOnClickListener(v -> showDialog("Weight", progressWeight));
-
-        return view;
     }
 
-    void fetchMaxValues() {
+    // Data Fetching and UI Updates
+    private void fetchMaxValues() {
         String userId = auth.getCurrentUser().getUid();
         database.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    // Fetch max values for each progress bar
-                    Integer stepsMax = snapshot.child("stepsMax").getValue(Integer.class);
-                    Integer caloriesMax = snapshot.child("caloriesMax").getValue(Integer.class);
-                    Integer weightMax = snapshot.child("weightMax").getValue(Integer.class);
-
-                    // Apply fetched max values to progress bars
-                    if (stepsMax != null) progressSteps.setMax(stepsMax);
-                    if (caloriesMax != null) progressCalories.setMax(caloriesMax);
-                    if (weightMax != null) progressWeight.setMax(weightMax);
-
-                    // Update the pie chart to reflect the new max values
+                    saveMaxValuesToPreferences(snapshot);
+                    updateProgressBars(snapshot);
                     updatePieChart();
+                } else {
+                    Log.e("Firebase", "No max values found for the user.");
                 }
             }
 
@@ -88,8 +99,45 @@ public class TrackerFragment extends Fragment {
         });
     }
 
-    void showDialog(String type, ProgressBar progressBar) {
-        // Inflate the dialog layout
+    private void saveMaxValuesToPreferences(DataSnapshot snapshot) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Integer stepsMax = snapshot.child("stepsMax").getValue(Integer.class);
+        Integer caloriesMax = snapshot.child("caloriesMax").getValue(Integer.class);
+        Integer weightMax = snapshot.child("weightMax").getValue(Integer.class);
+
+        if (stepsMax != null) editor.putInt("stepsMax", stepsMax);
+        if (caloriesMax != null) editor.putInt("caloriesMax", caloriesMax);
+        if (weightMax != null) editor.putInt("weightMax", weightMax);
+
+        editor.apply();
+    }
+
+    private void updateProgressBars(DataSnapshot snapshot) {
+        Integer stepsMax = snapshot.child("stepsMax").getValue(Integer.class);
+        Integer caloriesMax = snapshot.child("caloriesMax").getValue(Integer.class);
+        Integer weightMax = snapshot.child("weightMax").getValue(Integer.class);
+
+        if (stepsMax != null) progressSteps.setMax(stepsMax);
+        if (caloriesMax != null) progressCalories.setMax(caloriesMax);
+        if (weightMax != null) progressWeight.setMax(weightMax);
+    }
+
+    private void loadMaxValuesFromPreferences() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+
+        int stepsMax = sharedPreferences.getInt("stepsMax", 10000); // Default to 10000
+        int caloriesMax = sharedPreferences.getInt("caloriesMax", 2000); // Default to 2000
+        int weightMax = sharedPreferences.getInt("weightMax", 100); // Default to 100
+
+        progressSteps.setMax(stepsMax);
+        progressCalories.setMax(caloriesMax);
+        progressWeight.setMax(weightMax);
+    }
+
+    // Dialog and Input Handling
+    private void showDialog(String type, ProgressBar progressBar) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_update_max, null);
         builder.setView(dialogView);
@@ -98,16 +146,13 @@ public class TrackerFragment extends Fragment {
         EditText inputNewMax = dialogView.findViewById(R.id.input_new_max);
         Button buttonConfirm = dialogView.findViewById(R.id.button_confirm);
 
-        // Display current progress and max value
         int currentProgress = progressBar.getProgress();
         int currentMax = progressBar.getMax();
         currentProgressText.setText("Current Progress: " + currentProgress + "/" + currentMax);
 
-        // Create and show the dialog
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        // Handle confirm button click
         buttonConfirm.setOnClickListener(v -> {
             String newMaxStr = inputNewMax.getText().toString();
             if (!newMaxStr.isEmpty()) {
@@ -115,7 +160,6 @@ public class TrackerFragment extends Fragment {
                     int newMax = Integer.parseInt(newMaxStr);
                     progressBar.setMax(newMax);
 
-                    // Update Firebase with the new max value
                     String userId = auth.getCurrentUser().getUid();
                     database.child("users").child(userId).child(type.toLowerCase() + "Max").setValue(newMax)
                             .addOnSuccessListener(aVoid -> {
@@ -136,12 +180,11 @@ public class TrackerFragment extends Fragment {
         });
     }
 
-    void updatePieChart() {
-        // Calculate the total progress and max values
+    // Chart Updates
+    private void updatePieChart() {
         int totalProgress = progressSteps.getProgress() + progressCalories.getProgress() + progressWeight.getProgress();
         int totalMax = progressSteps.getMax() + progressCalories.getMax() + progressWeight.getMax();
 
-        // Update the pie chart
         if (totalMax > 0) {
             float percentage = (totalProgress / (float) totalMax) * 100;
             circularProgress.setMax(100);
@@ -151,6 +194,4 @@ public class TrackerFragment extends Fragment {
             circularProgress.setProgress(0);
         }
     }
-
-
 }

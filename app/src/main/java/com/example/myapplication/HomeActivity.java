@@ -93,6 +93,7 @@ public class HomeActivity extends AppCompatActivity {
         fetchUserData();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_menu, menu);
@@ -176,10 +177,17 @@ public class HomeActivity extends AppCompatActivity {
         int totalProgress = (distance + duration + reps + sets) / 4;
         circularProgress.setProgress(totalProgress);
 
-        progressSteps.setProgress(distance);
-        progressCalories.setProgress(duration);
-        progressWeight.setProgress(reps + sets);
+        int steps = distance * 1312;
+        int weights = reps * sets;
+        double caloriesD = (steps * 0.1) + (weights * 3) ;
+        int calories = (int) Math.round(caloriesD);
+
+        progressSteps.setProgress(steps);
+        progressCalories.setProgress(calories);
+        progressWeight.setProgress(weights);
 
         textStats.setText("Today's Workout Summary");
+
+
     }
 }
