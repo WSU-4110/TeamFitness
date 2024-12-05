@@ -36,12 +36,6 @@
 
     <string name="fab_desc">floating button description</string>
 
-    <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
-    consectetur adipiscing elit. Praesent ultrices congue rutrum.
-    Phasellus elementum ipsum ac convallis aliquam. Suspendisse eleifend
-    eros a enim faucibus mollis. Nunc placerat, est vitae vestibulum
-    blandit, dolor diam fringilla tellus, eu euismod mauris neque
-    at neque.</string>
 
     <string name="subtitle_detail_text">Lorem ipsum dolor sit amet,
     consectetur adipiscing elit. Praesent ultrices congue rutrum.
