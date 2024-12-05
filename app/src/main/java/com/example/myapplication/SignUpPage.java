@@ -50,6 +50,7 @@ public class SignUpPage extends AppCompatActivity {
     EditText email;
     EditText password;
     EditText confirmPassword;
+    EditText username;
 
     private FirebaseAuth fAuth;
 
@@ -161,9 +162,11 @@ public class SignUpPage extends AppCompatActivity {
             }
         });
 
+        username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirmPassword);
+
 
         fAuth = FirebaseAuth.getInstance();
 
