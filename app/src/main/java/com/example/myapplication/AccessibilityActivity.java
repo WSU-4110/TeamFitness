@@ -32,8 +32,8 @@ public class AccessibilityActivity extends AppCompatActivity {
 
         // Initialize UI components
         fontSizeSeekBar = findViewById(R.id.fontSizeSeekBar);
-        themeRadioGroup = findViewById(R.id.themeRadioGroup);
-        highContrastSwitch = findViewById(R.id.highContrastSwitch);
+//        themeRadioGroup = findViewById(R.id.themeRadioGroup);
+//        highContrastSwitch = findViewById(R.id.highContrastSwitch);
         Button saveButton = findViewById(R.id.saveAccessibilityButton);
 
         // Load saved settings
@@ -65,16 +65,16 @@ public class AccessibilityActivity extends AppCompatActivity {
         fontSizeSeekBar.setProgress(fontSize);
 
         // Load theme
-        int savedTheme = getThemeFromPreferences(prefs);
-        if (savedTheme == R.style.LightTheme) {
-            themeRadioGroup.check(R.id.lightModeRadio);
-        } else if (savedTheme == R.style.DarkTheme) {
-            themeRadioGroup.check(R.id.darkModeRadio);
-        }
-
-        // Load high contrast
-        boolean highContrast = prefs.getBoolean(HIGH_CONTRAST_KEY, false);
-        highContrastSwitch.setChecked(highContrast);
+//        int savedTheme = getThemeFromPreferences(prefs);
+//        if (savedTheme == R.style.LightTheme) {
+//            themeRadioGroup.check(R.id.lightModeRadio);
+//        } else if (savedTheme == R.style.DarkTheme) {
+//            themeRadioGroup.check(R.id.darkModeRadio);
+//        }
+//
+//        // Load high contrast
+//        boolean highContrast = prefs.getBoolean(HIGH_CONTRAST_KEY, false);
+//        highContrastSwitch.setChecked(highContrast);
     }
 
     private void saveSettings(SharedPreferences prefs) {
@@ -84,20 +84,20 @@ public class AccessibilityActivity extends AppCompatActivity {
         int fontSize = fontSizeSeekBar.getProgress();
         editor.putInt(FONT_SIZE_KEY, fontSize);
 
-        // Save theme
-        int selectedThemeId = themeRadioGroup.getCheckedRadioButtonId();
-        if (selectedThemeId == R.id.lightModeRadio) {
-            editor.putInt(THEME_KEY, R.style.LightTheme);
-        } else if (selectedThemeId == R.id.darkModeRadio) {
-            editor.putInt(THEME_KEY, R.style.DarkTheme);
-        }
-
-        // Save high contrast setting
-        boolean highContrast = highContrastSwitch.isChecked();
-        editor.putBoolean(HIGH_CONTRAST_KEY, highContrast);
-        if (highContrast) {
-            editor.putInt(THEME_KEY, R.style.HighContrastTheme);
-        }
+//        // Save theme
+//        int selectedThemeId = themeRadioGroup.getCheckedRadioButtonId();
+//        if (selectedThemeId == R.id.lightModeRadio) {
+//            editor.putInt(THEME_KEY, R.style.LightTheme);
+//        } else if (selectedThemeId == R.id.darkModeRadio) {
+//            editor.putInt(THEME_KEY, R.style.DarkTheme);
+//        }
+//
+//        // Save high contrast setting
+//        boolean highContrast = highContrastSwitch.isChecked();
+//        editor.putBoolean(HIGH_CONTRAST_KEY, highContrast);
+//        if (highContrast) {
+//            editor.putInt(THEME_KEY, R.style.HighContrastTheme);
+//        }
 
         editor.apply();
     }
