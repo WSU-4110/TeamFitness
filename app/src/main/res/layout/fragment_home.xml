@@ -103,56 +103,110 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#D3D3D3">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:id="@+id/achievementStepsImage"
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#D3D3D3">
+
+
+
+                <ImageView
+                    android:id="@+id/achievementStepsImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/achievement_steps" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/achievementStepsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/achievement_steps" />
-        </FrameLayout>
+                android:layout_marginTop="5dp"
+                android:text="Steps"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:gravity="center" />
+        </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#D3D3D3">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:id="@+id/achievementWeightsImage"
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#D3D3D3">
+
+                <ImageView
+                    android:id="@+id/achievementWeightsImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/achievement_weights" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/achievementWeightsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/achievement_weights" />
-        </FrameLayout>
+                android:layout_marginTop="5dp"
+                android:text="Weights"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:gravity="center" />
+        </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#D3D3D3">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:id="@+id/achievementCaloriesImage"
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#D3D3D3">
+
+                <ImageView
+                    android:id="@+id/achievementCaloriesImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/achievement_calories" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/achievementCaloriesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/achievement_calories" />
-        </FrameLayout>
-
+                android:layout_marginTop="5dp"
+                android:text="Calories"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:gravity="center" />
+        </LinearLayout>
     </LinearLayout>
+
 
 
 </LinearLayout>
