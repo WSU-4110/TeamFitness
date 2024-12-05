@@ -64,6 +64,22 @@
                   
             android:name=".Profile"
             android:exported="false" />
+
+        <activity
+            android:name=".PostDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PostDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PostDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PostDetailActivity"
+            android:exported="false" />
+
         <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
