@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/primary_light</item>
         <item name="colorPrimaryVariant">@color/primary_variant_light</item>
         <item name="colorOnPrimary">@color/on_primary_light</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/tflight_purple</item>
     </style>
 
     <!-- Dark Theme -->
@@ -20,7 +20,7 @@
         <item name="colorPrimary">@color/hc_primary</item>
         <item name="colorPrimaryVariant">@color/hc_primary_variant</item>
         <item name="colorOnPrimary">@color/hc_on_primary</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/tflight_purple</item>
     </style>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
