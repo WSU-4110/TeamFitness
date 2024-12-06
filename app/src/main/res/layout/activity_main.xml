@@ -92,25 +92,25 @@
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="118dp"
+        android:layout_height="65dp"
         android:layout_marginBottom="0dp"
         android:padding="8dp"
-        android:text="Not yet registered? Sign Up Now"
+        android:text="Sign Up"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="171dp"
+        android:layout_height="66dp"
         android:layout_marginBottom="0dp"
         android:padding="8dp"
         android:text="Forgot Password"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
 
 

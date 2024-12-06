@@ -236,7 +236,7 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             Log.e("NavHostFragment", "NavHostFragment not found!");
         }
-        checkProgressAndNotify(); // Check progress after updating UI
+        //checkProgressAndNotify(); // Check progress after updating UI
     }
 
 }

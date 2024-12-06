@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default Theme Colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -12,6 +13,13 @@
     <color name="primary_light">#6200EE</color>
     <color name="primary_variant_light">#3700B3</color>
     <color name="on_primary_light">#FFFFFF</color>
+
+    <!-- App-Specific Colors -->
+    <color name="tflight_purple">#cacae2</color>
+    <color name="tfbackground_color">#050a35</color>
+    <color name="tfprimary_color">#4242de</color>
+    <color name="tfsecondary_color">#fa5639</color>
+    <color name="tfaccent_color">#dddddd</color>
 
     <!-- Dark Theme Colors -->
     <color name="primary_dark">#BB86FC</color>
@@ -26,5 +34,4 @@
     <color name="hc_text">#FFFFFF</color> <!-- White for text -->
     <color name="hc_surface">#303030</color> <!-- Dark gray for surfaces -->
     <color name="hc_background">#303030</color> <!-- Dark gray for surfaces -->
-
 </resources>
