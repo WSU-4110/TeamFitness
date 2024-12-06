@@ -43,4 +43,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <TextView
+        android:id="@+id/emptyDashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Workout Routines Appear Here"
+        android:visibility="gone" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

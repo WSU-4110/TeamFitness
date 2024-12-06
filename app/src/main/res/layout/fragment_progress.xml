@@ -11,4 +11,13 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         tools:listitem="@layout/workout_item"/>
+
+    <TextView
+        android:id="@+id/emptyProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Workout Routines Appear Here"
+        android:visibility="gone" />
+
 </FrameLayout>

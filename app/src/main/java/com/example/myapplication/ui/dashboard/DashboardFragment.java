@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -68,6 +69,8 @@ public class DashboardFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (binding == null) return; // Prevent crashes if the binding is null.
+
                 mRoutineTitles.clear();
                 for (DataSnapshot routineSnapshot : dataSnapshot.getChildren()) {
                     String routineName = routineSnapshot.child("Routine Name").getValue(String.class);
@@ -75,16 +78,28 @@ public class DashboardFragment extends Fragment {
                         mRoutineTitles.add(routineName);
                     }
                 }
+
                 // Notify adapter that the data has changed.
                 mAdapter.notifyDataSetChanged();
+
+                // Toggle visibility of emptyDashboard TextView.
+                TextView emptyDashboard = binding.getRoot().findViewById(R.id.emptyDashboard);
+                if (mRoutineTitles.isEmpty()) {
+                    emptyDashboard.setVisibility(View.VISIBLE);
+                } else {
+                    emptyDashboard.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (binding == null) return; // Prevent crashes if the binding is null.
                 Log.w("DashboardFragment", "loadWorkoutRoutines:onCancelled", databaseError.toException());
             }
         });
     }
+
+
 
     @Override
     public void onDestroyView() {
