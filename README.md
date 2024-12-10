@@ -20,9 +20,9 @@ To start using the Ultimate Fitness App:
 
 
 ## Group Members
-- Ike A
-- Noah W
-- Gene R
-- Reyna M
-- Diego Z
+- Ike A (Ikemba15)
+- Noah W (1102noah)
+- Gino R (gino-reinke)
+- Reyna M (hh1864)
+- Diego Z (DiegoZ-Official) & (DieZam42)
 
