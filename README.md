@@ -1,4 +1,4 @@
-+<!-- ABOUT THE PROJECT -->
+<!-- ABOUT THE PROJECT -->
 ## About The Project
 **Total Fitness** is a social media application designed for fitness enthusiasts, enabling them to track their fitness journeys, create their own workout routines, and support their health goals. The platform is designed to motivate and inspire users towards achieving a healthier lifestyle.
 
