@@ -70,7 +70,7 @@ After successfully building the project:
 ## Troubleshooting
 
 - **Dependency Issues**: If you encounter errors related to missing dependencies, try syncing the project with Gradle files by clicking "Sync Project with Gradle Files" in Android Studio.
-- **Emulator Performance**: For better performance, enable hardware acceleration for the Android emulator.
+- **Emulator Performance**: For better performance, enable hardware acceleration for the Android emulator. Consider downgrading the version of Android if you are running the emulator on an older computer.
 - **Build Failures**: Check the "Build" window in Android Studio for detailed error messages and address them accordingly.
 
 For further assistance, refer to the [official Android Studio documentation](https://developer.android.com/studio) or consult the project's [GitHub Issues page](https://github.com/WSU-4110/TeamFitness/issues).
