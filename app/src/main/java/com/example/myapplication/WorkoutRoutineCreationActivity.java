@@ -3,77 +3,58 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WorkoutRoutineCreationActivity extends AppCompatActivity {
-    private TextView labelSets, labelReps, labelDistance, labelDuration, labelWeight;
-    private EditText inputSets, inputReps, inputDistance, inputDuration, inputWorkoutName, inputWeight;
+
+    private LinearLayout workoutContainer;
+    private Button buttonAddWorkout, buttonSaveWorkout;
+    private EditText inputRoutineTitle;
 
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
-    Button saveWorkout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_workout_routine_creation);
+        setContentView(R.layout.activity_workoutroutine_creation);
 
-        labelSets = findViewById(R.id.label_sets);
-        inputSets = findViewById(R.id.input_sets);
-        labelReps = findViewById(R.id.label_reps);
-        inputReps = findViewById(R.id.input_reps);
-        labelWeight = findViewById(R.id.label_weight);
-        inputWeight = findViewById(R.id.input_weight);
-        labelDistance = findViewById(R.id.label_distance);
-        inputDistance = findViewById(R.id.input_distance);
-        labelDuration = findViewById(R.id.label_duration);
-        inputDuration = findViewById(R.id.input_duration);
-        inputWorkoutName = findViewById(R.id.input_workout_name);
+        workoutContainer = findViewById(R.id.workout_container);
+        buttonAddWorkout = findViewById(R.id.button_add_workout);
+        buttonSaveWorkout = findViewById(R.id.button_save_workout);
+        inputRoutineTitle = findViewById(R.id.input_workout_routine_title); // Corrected ID
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Create Individual Workout");
+            getSupportActionBar().setTitle("Create Workout Routine");
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Add initial workout form
+        addWorkoutForm();
 
-        labelSets.setVisibility(View.GONE);
-        inputSets.setVisibility(View.GONE);
-        labelReps.setVisibility(View.GONE);
-        inputReps.setVisibility(View.GONE);
-        labelWeight.setVisibility(View.GONE);
-        inputWeight.setVisibility(View.GONE);
-        labelDistance.setVisibility(View.GONE);
-        inputDistance.setVisibility(View.GONE);
-        labelDuration.setVisibility(View.GONE);
-        inputDuration.setVisibility(View.GONE);
+        buttonAddWorkout.setOnClickListener(v -> addWorkoutForm());
+
+        buttonSaveWorkout.setOnClickListener(v -> saveWorkoutRoutine());
     }
 
     @Override
@@ -82,109 +63,86 @@ public class WorkoutRoutineCreationActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
+    private void addWorkoutForm() {
+        View workoutForm = LayoutInflater.from(this).inflate(R.layout.workout_form, workoutContainer, false);
 
-        // Check which radio button was clicked
-        if (view.getId() == R.id.cardio && checked) {
-            labelSets.setVisibility(View.GONE);
-            inputSets.setVisibility(View.GONE);
-            labelReps.setVisibility(View.GONE);
-            inputReps.setVisibility(View.GONE);
-            labelWeight.setVisibility(View.GONE);
-            inputWeight.setVisibility(View.GONE);
-            labelDistance.setVisibility(View.VISIBLE);
-            inputDistance.setVisibility(View.VISIBLE);
-            labelDuration.setVisibility(View.VISIBLE);
-            inputDuration.setVisibility(View.VISIBLE);
+        RadioGroup radioGroup = workoutForm.findViewById(R.id.radio_group_workout_type);
+        View weightFields = workoutForm.findViewById(R.id.weight_fields);
+        View cardioFields = workoutForm.findViewById(R.id.cardio_fields);
 
-            // Initialize the save workout button and make the onClickListener
-            saveWorkout = findViewById(R.id.button_save_workout);
-            saveWorkout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.cardio) {
+                cardioFields.setVisibility(View.VISIBLE);
+                weightFields.setVisibility(View.GONE);
+            } else if (checkedId == R.id.weightLifting) {
+                cardioFields.setVisibility(View.GONE);
+                weightFields.setVisibility(View.VISIBLE);
+            }
+        });
 
-                    // Get and save the inputs as strings
-                    String strWorkoutName = inputWorkoutName.getText().toString();
-                    String strDistance = inputDistance.getText().toString();
-                    String strDuration = inputDuration.getText().toString();
+        workoutContainer.addView(workoutForm);
+    }
 
-                    // Get the current users ID to make sure that the inputs are personalized to them
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private void saveWorkoutRoutine() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String routineName = inputRoutineTitle.getText().toString().trim(); // Corrected variable
 
-                    // Gets the table ID of the table section in our Firebase database
-                    String tableId = db.child("users").child(userId).child("tables").push().getKey();
-
-                    // Creating a spot for the users inputs
-                    Map<String, Object> tableData = new HashMap<>();
-
-                    // Putting the users information into the hash
-                    tableData.put("Workout Name", strWorkoutName);
-                    tableData.put("Distance", strDistance);
-                    tableData.put("Duration", strDuration);
-
-                    // Creates a new table under the tables section in firebase
-                    db.child("users").child(userId).child("tables").child(tableId)
-                            .setValue(tableData)
-                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully written!"))
-                            .addOnFailureListener(e -> Log.w("Firestore", "Error writing document", e));
-
-                    Intent intent = new Intent(WorkoutRoutineCreationActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-
-        } else if (view.getId() == R.id.weightLifting && checked) {
-            labelSets.setVisibility(View.VISIBLE);
-            inputSets.setVisibility(View.VISIBLE);
-            labelReps.setVisibility(View.VISIBLE);
-            inputReps.setVisibility(View.VISIBLE);
-            labelWeight.setVisibility(View.VISIBLE);
-            inputWeight.setVisibility(View.VISIBLE);
-            labelDistance.setVisibility(View.GONE);
-            inputDistance.setVisibility(View.GONE);
-            labelDuration.setVisibility(View.GONE);
-            inputDuration.setVisibility(View.GONE);
-
-
-            saveWorkout = findViewById(R.id.button_save_workout);
-            saveWorkout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // Getting the inputs and making them strings
-                    String strWorkoutName = inputWorkoutName.getText().toString();
-                    String strSets = inputSets.getText().toString();
-                    String strReps = inputReps.getText().toString();
-                    String strWeight = inputWeight.getText().toString();
-
-                    // Gets the currents users ID so that only this user is able to see their input
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    // Gets the table id of the "tables" section in firebase
-                    String tableId = db.child("users").child(userId).child("tables").push().getKey();
-
-                    // Creates a spot to save the users information
-                    Map<String, Object> tableData = new HashMap<>();
-
-                    // Puts the users information into the hash
-                    tableData.put("Workout Name", strWorkoutName);
-                    tableData.put("Sets", strSets);
-                    tableData.put("Reps", strReps);
-                    tableData.put("Weight", strWeight);
-
-                    // Creates a new table for the users inputs under the tables section in firebase
-                    db.child("users").child(userId).child("tables").child(tableId)
-                            .setValue(tableData)
-                            .addOnSuccessListener(aVoid -> Log.d("RealTimeDB", "DocumentSnapshot successfully written!"))
-                            .addOnFailureListener(e -> Log.w("RealTimeDB", "Error writing document", e));
-
-                    Intent intent = new Intent(WorkoutRoutineCreationActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+        if (routineName.isEmpty()) {
+            inputRoutineTitle.setError("Routine name is required");
+            inputRoutineTitle.requestFocus();
+            return;
         }
+
+        List<Map<String, Object>> workouts = new ArrayList<>();
+
+        for (int i = 0; i < workoutContainer.getChildCount(); i++) {
+            View workoutForm = workoutContainer.getChildAt(i);
+
+            EditText inputWorkoutName = workoutForm.findViewById(R.id.input_workout_name);
+            String workoutName = inputWorkoutName.getText().toString();
+
+            if (workoutName.isEmpty()) continue;
+
+            Map<String, Object> workoutData = new HashMap<>();
+            workoutData.put("Workout Name", workoutName);
+
+            RadioGroup radioGroup = workoutForm.findViewById(R.id.radio_group_workout_type);
+            if (radioGroup.getCheckedRadioButtonId() == R.id.cardio) {
+                EditText inputDistance = workoutForm.findViewById(R.id.input_distance);
+                EditText inputDuration = workoutForm.findViewById(R.id.input_duration);
+                workoutData.put("Distance", inputDistance.getText().toString());
+                workoutData.put("Duration", inputDuration.getText().toString());
+            } else if (radioGroup.getCheckedRadioButtonId() == R.id.weightLifting) {
+                EditText inputSets = workoutForm.findViewById(R.id.input_sets);
+                EditText inputReps = workoutForm.findViewById(R.id.input_reps);
+                EditText inputWeight = workoutForm.findViewById(R.id.input_weight);
+                workoutData.put("Sets", inputSets.getText().toString());
+                workoutData.put("Reps", inputReps.getText().toString());
+                workoutData.put("Weight", inputWeight.getText().toString());
+            }
+
+            workouts.add(workoutData);
+        }
+
+        if (workouts.isEmpty()) {
+            Log.w("WorkoutRoutineCreationActivity", "No workouts to save");
+            return;
+        }
+
+        Map<String, Object> routineData = new HashMap<>();
+        routineData.put("Routine Name", routineName);
+        routineData.put("Workouts", workouts);
+
+        String routineId = db.child("users").child(userId).child("routines").push().getKey();
+        if (routineId != null) {
+            db.child("users").child(userId).child("routines").child(routineId)
+                    .setValue(routineData)
+                    .addOnSuccessListener(aVoid -> Log.d("RealTimeDB", "Routine added successfully!"))
+                    .addOnFailureListener(e -> Log.w("RealTimeDB", "Error writing routine", e));
+        }
+
+        Intent intent = new Intent(WorkoutRoutineCreationActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

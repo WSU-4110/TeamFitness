@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
-import com.example.myapplication.ui.PostsAdapter;
+import com.example.myapplication.ui.WorkoutRoutinesAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +31,7 @@ public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private RecyclerView mRecyclerView;
     private List<String> mRoutineTitles;
-    private PostsAdapter mAdapter;
+    private WorkoutRoutinesAdapter mAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,7 +52,7 @@ public class DashboardFragment extends Fragment {
         mRoutineTitles = new ArrayList<>();
 
         // Initialize the adapter and set it to the RecyclerView.
-        mAdapter = new PostsAdapter(getContext(), mRoutineTitles);
+        mAdapter = new WorkoutRoutinesAdapter(getContext(), mRoutineTitles);
         mRecyclerView.setAdapter(mAdapter);
 
         // Fetch data from Firebase.

@@ -9,29 +9,29 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.PostDetailActivity;
+import com.example.myapplication.WorkoutRoutineDetailActivity;
 import com.example.myapplication.R;
 
 import java.util.List;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+public class WorkoutRoutinesAdapter extends RecyclerView.Adapter<WorkoutRoutinesAdapter.ViewHolder> {
 
     private List<String> mRoutineTitles;
     private Context mContext;
 
-    public PostsAdapter(Context context, List<String> routineTitles) {
+    public WorkoutRoutinesAdapter(Context context, List<String> routineTitles) {
         this.mRoutineTitles = routineTitles;
         this.mContext = context;
     }
 
     @Override
-    public PostsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WorkoutRoutinesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
                 .inflate(R.layout.list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(PostsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(WorkoutRoutinesAdapter.ViewHolder holder, int position) {
         // Get current workout routine title.
         String currentTitle = mRoutineTitles.get(position);
 
@@ -67,7 +67,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public void onClick(View view) {
             String currentTitle = mRoutineTitles.get(getAdapterPosition());
 
-            Intent detailIntent = new Intent(mContext, PostDetailActivity.class);
+            Intent detailIntent = new Intent(mContext, WorkoutRoutineDetailActivity.class);
             detailIntent.putExtra("title", currentTitle);
             mContext.startActivity(detailIntent);
         }
