@@ -36,7 +36,7 @@ public class BioActivity extends AppCompatActivity {
         // Initialize UI components
         nameField = findViewById(R.id.nameField);
         bioField = findViewById(R.id.bioField);
-        profileImage = findViewById(R.id.profileImage);
+//        profileImage = findViewById(R.id.profileImage);
         saveBioButton = findViewById(R.id.saveBioButton);
 
         // Load saved bio data and profile picture

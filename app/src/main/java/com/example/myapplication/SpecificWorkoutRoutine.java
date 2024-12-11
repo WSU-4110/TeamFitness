@@ -1,7 +1,6 @@
 package com.example.myapplication;
-import android.util.Log;
 
-public class WorkoutRoutine {
+public class SpecificWorkoutRoutine {
     private String workoutRoutineTitle;
     private String workoutName;
     private String reps;
@@ -11,7 +10,7 @@ public class WorkoutRoutine {
     private String duration;
 
     // Parameterized constructor
-    public WorkoutRoutine(String workoutName, String duration, String distance, String weight, String sets, String reps) {
+    public SpecificWorkoutRoutine(String workoutName, String duration, String distance, String weight, String sets, String reps) {
         this.workoutName = workoutName;
         this.duration = duration;
         this.distance = distance;
@@ -21,7 +20,7 @@ public class WorkoutRoutine {
     }
 
     // Default constructor
-    public WorkoutRoutine() {}
+    public SpecificWorkoutRoutine() {}
 
     // Getters and Setters
     public String getWorkoutRoutineTitle() { return workoutRoutineTitle; }

@@ -1,5 +1,4 @@
 package com.example.myapplication;
-import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.fragment.app.Fragment;
 
@@ -77,13 +76,13 @@ public class HomeActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> toggleFABMenu());
 
         fab_workoutroutine.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, WorkoutRoutineCreationActivity.class);
+            Intent intent = new Intent(HomeActivity.this, WorkoutCreationActivity.class);
             startActivity(intent);
             hideFABMenu();
         });
 
         fab_post.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, PostCreationActivity.class);
+            Intent intent = new Intent(HomeActivity.this, WorkoutRoutineCreationActivity.class);
             startActivity(intent);
             hideFABMenu();
         });

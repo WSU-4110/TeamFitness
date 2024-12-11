@@ -18,21 +18,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDetailActivity extends AppCompatActivity {
+public class WorkoutRoutineDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private WorkoutRoutineAdapter adapter;
-    private List<WorkoutRoutine> workoutRoutineList;
+    private SpecificWorkoutRoutineAdapter adapter;
+    private List<SpecificWorkoutRoutine> specificWorkoutRoutineList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_detail);
+        setContentView(R.layout.activity_workoutroutine_detail);
 
         recyclerView = findViewById(R.id.workout_routine_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize the workoutRoutineList
-        workoutRoutineList = new ArrayList<>();
+        // Initialize the specificWorkoutRoutineList
+        specificWorkoutRoutineList = new ArrayList<>();
 
         // Get the title of the selected workout routine from the intent
         String routineTitle = getIntent().getStringExtra("title");
@@ -40,11 +40,11 @@ public class PostDetailActivity extends AppCompatActivity {
         if (routineTitle != null) {
             loadWorkoutRoutineDetails(routineTitle);
         } else {
-            Log.e("PostDetailActivity", "Routine title is null");
+            Log.e("WorkoutRoutineDetailActivity", "Routine title is null");
         }
 
-        // Set up the adapter with the populated workoutRoutineList
-        adapter = new WorkoutRoutineAdapter(this, workoutRoutineList);
+        // Set up the adapter with the populated specificWorkoutRoutineList
+        adapter = new SpecificWorkoutRoutineAdapter(this, specificWorkoutRoutineList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -68,7 +68,7 @@ public class PostDetailActivity extends AppCompatActivity {
                             String sets = workoutSnapshot.child("Sets").getValue(String.class);
                             String reps = workoutSnapshot.child("Reps").getValue(String.class);
 
-                            WorkoutRoutine workoutRoutine = new WorkoutRoutine(
+                            SpecificWorkoutRoutine specificWorkoutRoutine = new SpecificWorkoutRoutine(
                                     workoutName != null ? workoutName : "",
                                     duration != null ? duration : "",
                                     distance != null ? distance : "",
@@ -77,19 +77,19 @@ public class PostDetailActivity extends AppCompatActivity {
                                     reps != null ? reps : ""
                             );
 
-                            workoutRoutineList.add(workoutRoutine);
+                            specificWorkoutRoutineList.add(specificWorkoutRoutine);
                         }
                     }
                     // Notify adapter that the data has changed
                     adapter.notifyDataSetChanged();
                 } else {
-                    Log.w("PostDetailActivity", "No routine found with the given title: " + routineTitle);
+                    Log.w("WorkoutRoutineDetailActivity", "No routine found with the given title: " + routineTitle);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("PostDetailActivity", "loadWorkoutRoutineDetails:onCancelled", databaseError.toException());
+                Log.e("WorkoutRoutineDetailActivity", "loadWorkoutRoutineDetails:onCancelled", databaseError.toException());
             }
         });
     }

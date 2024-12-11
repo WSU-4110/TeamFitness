@@ -13,13 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class WorkoutRoutineAdapter extends RecyclerView.Adapter<WorkoutRoutineAdapter.WorkoutViewHolder> {
-    private final List<WorkoutRoutine> workoutRoutines;
+public class SpecificWorkoutRoutineAdapter extends RecyclerView.Adapter<SpecificWorkoutRoutineAdapter.WorkoutViewHolder> {
+    private final List<SpecificWorkoutRoutine> specificWorkoutRoutines;
     private final Context context;
 
-    public WorkoutRoutineAdapter(Context context, List<WorkoutRoutine> workoutRoutines) {
+    public SpecificWorkoutRoutineAdapter(Context context, List<SpecificWorkoutRoutine> specificWorkoutRoutines) {
         this.context = context;
-        this.workoutRoutines = workoutRoutines;
+        this.specificWorkoutRoutines = specificWorkoutRoutines;
     }
 
     @NonNull
@@ -31,7 +31,7 @@ public class WorkoutRoutineAdapter extends RecyclerView.Adapter<WorkoutRoutineAd
 
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
-        WorkoutRoutine routine = workoutRoutines.get(position);
+        SpecificWorkoutRoutine routine = specificWorkoutRoutines.get(position);
 
         // Create "Step X: " with underlined formatting and set font size to 20sp
         String workoutTitlePrefix = "Step " + (position + 1) + ": ";
@@ -56,7 +56,7 @@ public class WorkoutRoutineAdapter extends RecyclerView.Adapter<WorkoutRoutineAd
         // Dynamically hide or show attributes if they are empty or null, with prefixed text and units where necessary
         toggleVisibility(holder.repsTextView, "Reps: ", routine.getReps());
         toggleVisibility(holder.setsTextView, "Sets: ", routine.getSets());
-        toggleVisibility(holder.weightTextView, "Weight: ", routine.getWeight(), " lbs");
+        toggleVisibility(holder.weightTextView, "Weight: ", routine.getWeight(), " kg");
         toggleVisibility(holder.distanceTextView, "Distance: ", routine.getDistance(), " km");
         toggleVisibility(holder.durationTextView, "Duration: ", routine.getDuration(), " min");
     }
@@ -82,7 +82,7 @@ public class WorkoutRoutineAdapter extends RecyclerView.Adapter<WorkoutRoutineAd
 
     @Override
     public int getItemCount() {
-        return workoutRoutines.size();
+        return specificWorkoutRoutines.size();
     }
 
     public static class WorkoutViewHolder extends RecyclerView.ViewHolder {
